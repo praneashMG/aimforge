@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr" class="scroll-smooth w-full overflow-x-hidden dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Contact AimForge - Get in touch with our coaching staff, support team, and partnership managers.">
+    <title>Contact Us | AimForge</title>
+    
+    <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
+    
+    <script src="tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0B1D2A',   // Dark Blue
+                        secondary: '#7A1E2C', // Dark Red 
+                        base: '#000000',      
+                        cream: '#FFFFFF',     
+                        warmgray: '#9CA3AF',  
+                        charcoal: '#111827',  
+                        'card-dark': '#122230'// Dark Blue Card
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-color: #0B1D2A; 
+            --secondary-color: #7A1E2C; 
+            --bg-color: #FFFFFF; 
+            --bg-alt: #F3F4F6; 
+            --card-bg: #FFFFFF;    
+            --text-main: #1F2937; 
+            --text-heading: #000000; 
+            --navbar-bg: #0B1D2A; 
+            --border-color: #E5E7EB; 
+        }
+        
+        /* Dark Blue / Deep Dark Mode */
+        [data-theme="dark"] {
+            --primary-color: #0B1D2A;   
+            --secondary-color: #7A1E2C; 
+            --bg-color: #050E14;        /* Very Dark Navy Background */
+            --bg-alt: #08151E;          /* Alternating Dark Section */
+            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
+            --text-main: #E5E7EB;       /* Light Grey Text */
+            --text-heading: #FFFFFF;    /* Pure White Headings */
+            --navbar-bg: #050E14;       /* Dark Navbar */
+            --border-color: #172F43;    /* Dark border */
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body { 
+            overflow-x: hidden !important; 
+            width: 100%; 
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 { color: var(--text-heading); }
+        p, label { color: var(--text-main); }
+        
+        .bg-theme-main { background-color: var(--bg-color); }
+        .bg-theme-alt { background-color: var(--bg-alt); }
+        .bg-card-theme { background-color: var(--card-bg); }
+        
+        .text-heading-theme { color: var(--text-heading); }
+        .text-body-theme { color: var(--text-main); }
+        .border-theme { border-color: var(--border-color); }
+        
+        .bg-primary { background-color: var(--primary-color) !important; color: #FFFFFF !important; } 
+        .bg-secondary { background-color: var(--secondary-color) !important; color: #FFFFFF !important; }
+
+        /* Navbar Styles */
+        .navbar-container {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background-color 0.3s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #FFFFFF; 
+            padding: 8px 10px; 
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .nav-link:hover { color: var(--secondary-color); }
+        .nav-link.active { color: var(--secondary-color); font-weight: 600; }
+        
+        /* Dropdowns */
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--navbar-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        #dashboard-dropdown .dropdown-menu { left: auto; right: 0; }
+
+        .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block; padding: 12px 20px; color: #FFFFFF;
+            transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
+        .dropdown-arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%); transition: transform 0.3s ease;
+            background-color: var(--navbar-bg); color: #FFFFFF; 
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        
+        .mobile-dropdown-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            padding-left: 20px; background-color: rgba(255,255,255,0.05); border-radius: 8px;
+        }
+        .mobile-dropdown-content a { color: #E5E7EB; text-decoration: none;} 
+        .mobile-dropdown-content a:hover { color: var(--secondary-color); }
+        .mobile-dropdown-content.active { max-height: 500px; margin: 5px 0; }
+        
+        @media (max-width: 1279px) {
+            .desktop-nav, .navbar-right-desktop { display: none !important; }
+            .mobile-menu-button { display: flex !important; }
+        }
+        @media (min-width: 1280px) {
+            .desktop-nav, .navbar-right-desktop { display: flex !important; }
+            .mobile-menu-button { display: none !important; }
+        }
+
+        /* Map Section Hover Effect */
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(80%) contrast(1.2) opacity(0.8);
+            transition: all 0.5s ease;
+        }
+        .map-container:hover iframe {
+            filter: grayscale(0%) contrast(1) opacity(1);
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden m-0 p-0 antialiased bg-theme-main text-body-theme">
+
+    <div class="relative w-full max-w-full overflow-x-hidden flex flex-col min-h-screen">
+        
+        <nav id="navbar" class="navbar-container fixed top-0 inset-x-0 z-[1000]">
+            <div class="container mx-auto px-4 w-full">
+                <div class="flex items-center justify-between">
+                    
+                    <a href="index.html" class="flex items-center gap-3 no-underline transition-transform duration-300 hover:scale-105 group">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-xl md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="desktop-nav items-center space-x-0 xl:space-x-1 hidden xl:flex">
+                        <div class="dropdown" id="home-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('home-dropdown')">
+                                Home <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item">Home 1</a>
+                                <a href="home-2.html" class="dropdown-item">Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="programs.html" class="nav-link">Programs</a>
+                        <a href="videolibrary.html" class="nav-link">Video Library</a>
+                        <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="faq.html" class="nav-link">FAQ</a>
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                        <a href="contact.html" class="nav-link active">Contact</a>
+
+                        <div class="dropdown" id="dashboard-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('dashboard-dropdown')">
+                                Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="user-dashboard.html" class="dropdown-item">User</a>
+                                <a href="admin-dashboard.html" class="dropdown-item">Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="navbar-right-desktop flex items-center gap-2 lg:gap-3 shrink-0">
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
+                            <i class="fas fa-moon" id="desktop-theme-icon"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-rtl-toggle-btn" title="Toggle RTL">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        
+                        <a href="login.html" class="h-10 bg-transparent border border-white/40 text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white/20 shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white hover:text-primary shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                    
+                    <button id="mobile-menu-btn" class="hidden text-white cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[9999] overflow-y-auto">
+            <div class="p-4 sm:p-6">
+                <div class="flex flex-wrap justify-between items-center mb-8 gap-3">
+                    <a href="index.html" class="flex items-center gap-2 no-underline">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="flex items-center bg-gray-800 rounded-lg px-2 py-1 shadow-md border border-white/10">
+                        <button id="mobile-theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                        </button>
+                        <button id="mobile-rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        <button id="close-mobile-menu" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-xl sm:text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="space-y-1">
+                    <div>
+                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-white font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
+                            <span>Home</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="home-mobile" class="mobile-dropdown-content">
+                            <a href="index.html" class="block py-2.5">Home 1</a>
+                            <a href="home-2.html" class="block py-2.5">Home 2</a>
+                        </div>
+                    </div>
+                    
+                    <a href="about.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>About</span></a>
+                    <a href="programs.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Programs</span></a>
+                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Video Library</span></a>
+                    <a href="blog.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Blog</span></a>
+                    <a href="faq.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>FAQ</span></a>
+                    <a href="pricing.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Pricing</span></a>
+                    <a href="contact.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-white/10 transition-colors"><span>Contact</span></a>
+                    
+                    <div class="mt-2">
+                        <button class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
+                            <span>Dashboard</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="dashboard-mobile" class="mobile-dropdown-content">
+                            <a href="user-dashboard.html" class="block py-2.5">User</a>
+                            <a href="admin-dashboard.html" class="block py-2.5">Admin</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3">
+                        <a href="login.html" class="bg-transparent border border-white/30 text-white w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-white/10 flex items-center justify-center gap-2 no-underline">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-white hover:text-primary flex items-center justify-center gap-2 shadow-lg no-underline">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="w-full flex-grow">
+            
+            <section class="h-[100dvh] min-h-[600px] flex items-center justify-center relative overflow-hidden bg-primary pt-[70px]">
+                <div class="absolute inset-0 z-0">
+                    <img src="Images/contact.jpg" alt="Esports Background" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#0B1D2A]/60 via-[#0B1D2A]/80 to-[#0B1D2A]"></div>
+                </div>
+                
+                <div class="container mx-auto px-4 lg:px-6 relative z-10 text-center animate-fadeInUp flex flex-col items-center justify-center h-full pt-10">
+                    <div class="inline-block bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-6 backdrop-blur-sm">
+                        <i class="fas fa-headset text-secondary mr-2"></i> Player Support
+                    </div>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl uppercase tracking-tighter">
+                        Get In <span class="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-red-500">Touch</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-300 max-w-2xl leading-relaxed font-medium mx-auto drop-shadow-sm">
+                        Have questions about your coaching plan, need technical help with VOD submissions, or want to partner your organization with us? We're here.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-4">How To Reach Us</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme">Direct Support Channels</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme text-center transition-all hover:-translate-y-2 hover:border-secondary group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-5 text-2xl group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-heading-theme mb-2">Email Us</h3>
+                            <p class="text-sm text-body-theme mb-4 font-medium opacity-80">General questions & support</p>
+                            <a href="mailto:support@aimforge.com" class="text-secondary font-bold hover:underline">support@aimforge.com</a>
+                        </div>
+
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme text-center transition-all hover:-translate-y-2 hover:border-secondary group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-5 text-2xl group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-heading-theme mb-2">Live Support</h3>
+                            <p class="text-sm text-body-theme mb-4 font-medium opacity-80">Join our #help-desk</p>
+                            <a href="#" class="text-secondary font-bold hover:underline">Join Server →</a>
+                        </div>
+
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme text-center transition-all hover:-translate-y-2 hover:border-secondary group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-5 text-2xl group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-heading-theme mb-2">Partnerships</h3>
+                            <p class="text-sm text-body-theme mb-4 font-medium opacity-80">Teams & Creators</p>
+                            <a href="mailto:business@aimforge.com" class="text-secondary font-bold hover:underline">business@aimforge.com</a>
+                        </div>
+
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme text-center transition-all hover:-translate-y-2 hover:border-secondary group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-5 text-2xl group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-heading-theme mb-2">Help Tickets</h3>
+                            <p class="text-sm text-body-theme mb-4 font-medium opacity-80">Complex account issues</p>
+                            <a href="login.html" class="text-secondary font-bold hover:underline">Open Ticket →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-6xl px-4 lg:px-6">
+                    <div class="flex flex-col items-center mb-16 text-center">
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-4">Send A Message</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme">Drop Us a Line</h2>
+                        <p class="text-lg text-body-theme max-w-2xl mt-4 leading-relaxed font-medium opacity-80">
+                            Fill out the form below and our player support team will get back to you via email within 24 hours.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+                        
+                        <div class="lg:w-5/12 w-full space-y-6">
+                            <div class="flex items-center gap-5 p-6 bg-card-theme rounded-2xl border border-theme shadow-sm group hover:border-secondary transition-all">
+                                <div class="w-14 h-14 bg-secondary/10 rounded-full border border-theme flex items-center justify-center text-secondary shadow-sm text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-search-dollar"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-heading-theme text-lg">Billing & Subs</h4>
+                                    <p class="text-body-theme text-sm font-medium opacity-80">Upgrade, downgrade, or cancel securely.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-5 p-6 bg-card-theme rounded-2xl border border-theme shadow-sm group hover:border-secondary transition-all">
+                                <div class="w-14 h-14 bg-secondary/10 rounded-full border border-theme flex items-center justify-center text-secondary shadow-sm text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-heading-theme text-lg">VOD Issues</h4>
+                                    <p class="text-body-theme text-sm font-medium opacity-80">Help with uploading or link formatting.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:w-7/12 w-full">
+                            <div class="bg-card-theme p-8 md:p-10 rounded-3xl shadow-sm border border-theme relative overflow-hidden">
+                                <form id="contactForm" class="space-y-6 relative z-10">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label class="block text-sm font-bold text-heading-theme mb-2">First Name</label>
+                                            <input type="text" class="w-full px-5 py-3.5 rounded-xl bg-theme-alt border border-theme focus:border-secondary text-body-theme focus:outline-none transition-colors font-medium" placeholder="Jane" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-heading-theme mb-2">Last Name</label>
+                                            <input type="text" class="w-full px-5 py-3.5 rounded-xl bg-theme-alt border border-theme focus:border-secondary text-body-theme focus:outline-none transition-colors font-medium" placeholder="Doe" required>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-bold text-heading-theme mb-2">Email Address</label>
+                                        <input type="email" class="w-full px-5 py-3.5 rounded-xl bg-theme-alt border border-theme focus:border-secondary text-body-theme focus:outline-none transition-colors font-medium" placeholder="jane@example.com" required>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-bold text-heading-theme mb-2">Topic</label>
+                                        <select class="w-full px-5 py-3.5 rounded-xl bg-theme-alt border border-theme focus:border-secondary text-body-theme focus:outline-none transition-colors cursor-pointer font-medium appearance-none">
+                                            <option>Subscription Help</option>
+                                            <option>VOD Submission Issue</option>
+                                            <option>Technical Support</option>
+                                            <option>Partnerships / Orgs</option>
+                                            <option>General Feedback</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-bold text-heading-theme mb-2">Message</label>
+                                        <textarea rows="5" class="w-full px-5 py-3.5 rounded-xl bg-theme-alt border border-theme focus:border-secondary text-body-theme focus:outline-none transition-colors resize-none font-medium" placeholder="How can we help you rank up today?" required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="w-full py-4 bg-secondary text-white font-black rounded-xl shadow-md hover:bg-white hover:text-primary transition-all transform flex justify-center items-center gap-2 cursor-pointer border border-secondary hover:border-white">
+                                        Send Message <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto px-4 text-center relative z-10 flex flex-col items-center">
+                    <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-4">Availability</p>
+                    <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-6">Global Support & Coaching Hours</h2>
+                    <p class="text-body-theme text-lg max-w-2xl mx-auto mb-12 font-medium opacity-80">Our platform operates globally. Depending on your region, our coaches and support staff are available to assist you at optimal times.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                        <div class="p-8 bg-card-theme rounded-3xl border border-theme shadow-sm group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-6 text-2xl font-black group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <h3 class="font-black text-xl text-heading-theme mb-3">NA & LATAM</h3>
+                            <p class="text-sm text-body-theme font-medium leading-relaxed opacity-90">Live coaching sessions and ticket support are fully staffed from <span class="font-bold text-secondary">9:00 AM to 11:00 PM EST</span>.</p>
+                        </div>
+                        
+                        <div class="p-8 bg-card-theme rounded-3xl border border-theme shadow-sm group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-6 text-2xl font-black group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-globe-europe"></i>
+                            </div>
+                            <h3 class="font-black text-xl text-heading-theme mb-3">EU & CIS</h3>
+                            <p class="text-sm text-body-theme font-medium leading-relaxed opacity-90">European coaches and staff are active and scheduling sessions from <span class="font-bold text-secondary">10:00 AM to 10:00 PM CET</span>.</p>
+                        </div>
+                        
+                        <div class="p-8 bg-card-theme rounded-3xl border border-theme shadow-sm group">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 border border-theme text-secondary flex items-center justify-center mx-auto mb-6 text-2xl font-black group-hover:scale-110 group-hover:border-secondary transition-all">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <h3 class="font-black text-xl text-heading-theme mb-3">APAC & OCE</h3>
+                            <p class="text-sm text-body-theme font-medium leading-relaxed opacity-90">Support channels and specific regional coaches are available from <span class="font-bold text-secondary">12:00 PM to 12:00 AM AEST</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="map" class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
+                <div class="container mx-auto px-4 lg:px-6">
+                    <div class="text-center mb-10 flex flex-col items-center">
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-4">Our Headquarters</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">AimForge HQ</h2>
+                        <p class="text-body-theme text-lg font-medium opacity-80 max-w-2xl mx-auto">Located in the heart of Los Angeles, our main office houses our broadcasting studio and engineering team.</p>
+                    </div>
+                    <div class="map-container w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-sm border border-theme bg-theme-main p-2 max-w-6xl mx-auto">
+                        <iframe class="rounded-2xl" src="https://maps.google.com/maps?q=Los%20Angeles,%20CA&t=&z=13&ie=UTF8&iwloc=&output=embed" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto px-4 lg:px-6 text-center relative z-10 w-full flex flex-col items-center">
+                    <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-4">Collaborate</p>
+                    <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Partnerships & Sponsorships</h2>
+                    <p class="text-body-theme font-medium text-lg max-w-2xl mx-auto mb-12 opacity-80">We actively partner with creators, collegiate programs, and professional organizations to elevate the standard of competitive gaming.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto w-full">
+                        <div class="bg-card-theme p-8 rounded-3xl group shadow-sm border border-theme text-center hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-theme group-hover:border-secondary transition-all text-secondary">
+                                <i class="fas fa-video text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-2">Content Creators</h3>
+                            <p class="text-sm text-body-theme font-medium mb-6 opacity-80">Join our affiliate program, offer your community discounts, and get sponsored to document your rank-up journey.</p>
+                            <a href="mailto:creators@aimforge.com" class="text-secondary font-bold hover:underline">Apply Here →</a>
+                        </div>
+                        
+                        <div class="bg-card-theme p-8 rounded-3xl group shadow-sm border border-theme text-center hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-theme group-hover:border-secondary transition-all text-secondary">
+                                <i class="fas fa-university text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-2">Collegiate Programs</h3>
+                            <p class="text-sm text-body-theme font-medium mb-6 opacity-80">Outfit your entire varsity roster with AimForge Pro licenses at a heavily discounted educational rate.</p>
+                            <a href="mailto:edu@aimforge.com" class="text-secondary font-bold hover:underline">Contact Edu →</a>
+                        </div>
+
+                        <div class="bg-card-theme p-8 rounded-3xl group shadow-sm border border-theme text-center hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-theme group-hover:border-secondary transition-all text-secondary">
+                                <i class="fas fa-shield-alt text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-2">Esports Orgs</h3>
+                            <p class="text-sm text-body-theme font-medium mb-6 opacity-80">Hire our coaches for dedicated analyst work, VOD auditing, and opponent anti-stratting for your Tier 2/3 roster.</p>
+                            <a href="mailto:business@aimforge.com" class="text-secondary font-bold hover:underline">Talk Business →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-[#03090D] py-12 md:py-16 shrink-0 relative border-t border-white/10">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
+                    <div class="text-center sm:text-left">
+                        <a href="index.html" class="flex items-center justify-center sm:justify-start gap-3 mb-6 no-underline">
+                            <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                                <i class="fas fa-crosshairs text-white"></i>
+                            </div>
+                            <div>
+                                <span class="text-xl md:text-2xl font-bold text-white block">Aim<span class="text-secondary">Forge</span></span>
+                            </div>
+                        </a>
+                        <p class="text-gray-400 mb-6 font-medium text-sm">The ultimate E-Sports training platform. Connect with pro coaches, track your stats, and forge your legacy.</p>
+                        <div class="flex justify-center sm:justify-start space-x-3 sm:space-x-4">
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-discord"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitch"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Games</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Valorant Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">CS2 Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Apex Legends</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">League of Legends</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Platform</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="programs.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Programs</a></li>
+                            <li><a href="videolibrary.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Video Library</a></li>
+                            <li><a href="pricing.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Pricing</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Contact Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-4 text-white">Newsletter</h3>
+                        <p class="text-gray-400 mb-6 text-base font-medium leading-relaxed">Subscribe for meta updates, free tips, and exclusive coach AMAs.</p>
+                        <form class="flex flex-col gap-3">
+                            <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary font-medium shadow-sm text-center sm:text-left" required>
+                            <button type="submit" class="w-full bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-white hover:text-primary transition shadow-sm">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium relative text-center sm:text-left">
+                    <p class="mb-4 md:mb-0 text-gray-400">© 2026 AimForge. All rights reserved.</p>
+                    
+                    <div class="flex justify-center sm:justify-end gap-6 w-full md:w-auto">
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <button id="scroll-top" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-secondary text-white rounded-full shadow-lg hidden hover:bg-white hover:text-primary transition z-50 cursor-pointer border-0">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // --- FORM SUBMISSION ---
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message Sent! Our support team will respond to you within 24 hours.');
+            this.reset();
+        });
+
+        // --- THEME & RTL LOGIC ---
+        const desktopThemeToggleBtn = document.getElementById('desktop-theme-toggle-btn');
+        const desktopThemeIcon = document.getElementById('desktop-theme-icon');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+        const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
+        const desktopRtlToggleBtn = document.getElementById('desktop-rtl-toggle-btn');
+        
+        // Initialize Theme - Enforcing dark mode defaults
+        const currentTheme = localStorage.getItem('theme') || 'dark'; 
+        htmlElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            if (desktopThemeIcon) desktopThemeIcon.className = 'fas fa-sun';
+            if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+            
+            if (desktopThemeIcon) desktopThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            if (mobileThemeIcon) mobileThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        if (desktopThemeToggleBtn) desktopThemeToggleBtn.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        
+        // RTL Toggle
+        const currentDir = localStorage.getItem('direction') || 'ltr';
+        htmlElement.setAttribute('dir', currentDir);
+        
+        function toggleRTL() {
+            const direction = htmlElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+            htmlElement.setAttribute('dir', direction);
+            localStorage.setItem('direction', direction);
+        }
+        if (desktopRtlToggleBtn) desktopRtlToggleBtn.addEventListener('click', toggleRTL);
+        if (mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+
+        // --- DROPDOWNS & MOBILE MENU LOGIC ---
+        function toggleDesktopDropdown(id) {
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if(d.id !== id) d.classList.remove('active');
+            });
+            document.getElementById(id).classList.toggle('active');
+        }
+        
+        function toggleMobileDropdown(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+        }
+        if(closeMobileMenu) {
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        }
+
+        // --- ACTIVE LINK LOGIC ---
+        const currentPath = window.location.pathname.split('/').pop() || 'contact.html';
+        
+        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+            if (link.getAttribute('href') === 'contact.html' || currentPath === 'contact.html') {
+                if (link.getAttribute('href') === 'contact.html') {
+                    link.classList.add('active');
+                    const parent = link.closest('.dropdown');
+                    if (parent) parent.querySelector('.nav-link')?.classList.add('active');
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // --- SMOOTH SCROLL & OFFSET ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    mobileMenu.classList.remove('active'); 
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, 
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- SCROLL TOP LOGIC ---
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('hidden', window.scrollY <= 300);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        window.addEventListener('resize', () => {
+            if(window.innerWidth >= 1280) mobileMenu.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

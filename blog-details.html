@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr" class="scroll-smooth w-full overflow-x-hidden dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="AimForge Blog Details - Deep dive into meta updates, hardware, and pro guides.">
+    <title>Article | AimForge</title>
+    
+    <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
+    
+    <script src="tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0B1D2A',   // Dark Blue
+                        secondary: '#7A1E2C', // Dark Red 
+                        base: '#000000',      
+                        cream: '#FFFFFF',     
+                        warmgray: '#9CA3AF',  
+                        charcoal: '#111827',  
+                        'card-dark': '#122230'// Dark Blue Card
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-color: #0B1D2A; 
+            --secondary-color: #7A1E2C; 
+            --bg-color: #FFFFFF; 
+            --bg-alt: #F3F4F6; 
+            --card-bg: #FFFFFF;    
+            --text-main: #1F2937; 
+            --text-heading: #000000; 
+            --navbar-bg: #0B1D2A; 
+            --border-color: #E5E7EB; 
+        }
+        
+        /* Dark Blue / Deep Dark Mode */
+        [data-theme="dark"] {
+            --primary-color: #0B1D2A;   
+            --secondary-color: #7A1E2C; 
+            --bg-color: #050E14;        /* Very Dark Navy Background */
+            --bg-alt: #08151E;          /* Alternating Dark Section */
+            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
+            --text-main: #E5E7EB;       /* Light Grey Text */
+            --text-heading: #FFFFFF;    /* Pure White Headings */
+            --navbar-bg: #050E14;       /* Dark Navbar */
+            --border-color: #172F43;    /* Dark border */
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body { 
+            overflow-x: hidden !important; 
+            width: 100%; 
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 { color: var(--text-heading); }
+        p, label, li { color: var(--text-main); }
+        
+        .bg-theme-main { background-color: var(--bg-color); }
+        .bg-theme-alt { background-color: var(--bg-alt); }
+        .bg-card-theme { background-color: var(--card-bg); }
+        
+        .text-heading-theme { color: var(--text-heading); }
+        .text-body-theme { color: var(--text-main); }
+        .border-theme { border-color: var(--border-color); }
+        
+        .bg-primary { background-color: var(--primary-color) !important; color: #FFFFFF !important; } 
+        .bg-secondary { background-color: var(--secondary-color) !important; color: #FFFFFF !important; }
+
+        /* Navbar Styles */
+        .navbar-container {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background-color 0.3s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #FFFFFF; 
+            padding: 8px 10px; 
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .nav-link:hover { color: var(--secondary-color); }
+        .nav-link.active { color: var(--secondary-color); font-weight: 600; }
+        
+        /* Dropdowns */
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--navbar-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        #dashboard-dropdown .dropdown-menu { left: auto; right: 0; }
+
+        .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block; padding: 12px 20px; color: #FFFFFF;
+            transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
+        .dropdown-arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%); transition: transform 0.3s ease;
+            background-color: var(--navbar-bg); color: #FFFFFF; 
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        
+        .mobile-dropdown-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            padding-left: 20px; background-color: rgba(255,255,255,0.05); border-radius: 8px;
+        }
+        .mobile-dropdown-content a { color: #E5E7EB; text-decoration: none;} 
+        .mobile-dropdown-content a:hover { color: var(--secondary-color); }
+        .mobile-dropdown-content.active { max-height: 500px; margin: 5px 0; }
+        
+        @media (max-width: 1279px) {
+            .desktop-nav, .navbar-right-desktop { display: none !important; }
+            .mobile-menu-button { display: flex !important; }
+        }
+        @media (min-width: 1280px) {
+            .desktop-nav, .navbar-right-desktop { display: flex !important; }
+            .mobile-menu-button { display: none !important; }
+        }
+        
+        /* Dynamic Article Formatting Elements */
+        .article-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.875rem; font-weight: 800; color: var(--text-heading); }
+        .article-content h3 { margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.5rem; font-weight: 700; color: var(--text-heading); }
+        .article-content p { margin-bottom: 1.25rem; font-size: 1.125rem; line-height: 1.8; color: var(--text-main); }
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; font-size: 1.125rem; color: var(--text-main); }
+        .article-content li { margin-bottom: 0.5rem; }
+        .article-content blockquote { border-left: 4px solid var(--secondary-color); padding-left: 1.5rem; font-style: italic; font-weight: 600; margin: 2rem 0; font-size: 1.25rem; color: var(--text-heading); background-color: rgba(122, 30, 44, 0.05); padding-top: 1rem; padding-bottom: 1rem; border-radius: 0 0.5rem 0.5rem 0;}
+        .article-content strong { color: var(--text-heading); font-weight: 700; }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden m-0 p-0 antialiased bg-theme-main text-body-theme">
+
+    <div class="relative w-full max-w-full overflow-x-hidden flex flex-col min-h-screen">
+        
+        <nav id="navbar" class="navbar-container fixed top-0 inset-x-0 z-[1000]">
+            <div class="container mx-auto px-4 w-full">
+                <div class="flex items-center justify-between">
+                    
+                    <a href="index.html" class="flex items-center gap-3 no-underline transition-transform duration-300 hover:scale-105 group">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-xl md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="desktop-nav items-center space-x-0 xl:space-x-1 hidden xl:flex">
+                        <div class="dropdown" id="home-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('home-dropdown')">
+                                Home <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item">Home 1</a>
+                                <a href="home-2.html" class="dropdown-item">Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="programs.html" class="nav-link">Programs</a>
+                        <a href="videolibrary.html" class="nav-link">Video Library</a>
+                        <a href="blog.html" class="nav-link active">Blog</a>
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                        <a href="faq.html" class="nav-link">FAQ</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+
+                        <div class="dropdown" id="dashboard-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('dashboard-dropdown')">
+                                Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="user-dashboard.html" class="dropdown-item">User</a>
+                                <a href="admin-dashboard.html" class="dropdown-item">Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="navbar-right-desktop flex items-center gap-2 lg:gap-3 shrink-0">
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
+                            <i class="fas fa-moon" id="desktop-theme-icon"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-rtl-toggle-btn" title="Toggle RTL">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        
+                        <a href="login.html" class="h-10 bg-transparent border border-white/40 text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white/20 shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white hover:text-primary shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                    
+                    <button id="mobile-menu-btn" class="hidden text-white cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[9999] overflow-y-auto">
+            <div class="p-4 sm:p-6">
+                <div class="flex flex-wrap justify-between items-center mb-8 gap-3">
+                    <a href="index.html" class="flex items-center gap-2 no-underline">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="flex items-center bg-gray-800 rounded-lg px-2 py-1 shadow-md border border-white/10">
+                        <button id="mobile-theme-toggle" class="w-10 h-10 text-white flex items-center justify-center text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                        </button>
+                        <button id="mobile-rtl-toggle" class="w-10 h-10 text-white flex items-center justify-center text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        <button id="close-mobile-menu" class="w-10 h-10 text-white flex items-center justify-center text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="space-y-1">
+                    <div>
+                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-white font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
+                            <span>Home</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="home-mobile" class="mobile-dropdown-content">
+                            <a href="index.html" class="block py-2.5">Home 1</a>
+                            <a href="home-2.html" class="block py-2.5">Home 2</a>
+                        </div>
+                    </div>
+                    
+                    <a href="about.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>About</span></a>
+                    <a href="programs.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Programs</span></a>
+                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Video Library</span></a>
+                    <a href="blog.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-white/10 transition-colors"><span>Blog</span></a>
+                    <a href="pricing.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Pricing</span></a>
+                    <a href="faq.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>FAQ</span></a>
+                    <a href="contact.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Contact</span></a>
+                    
+                    <div class="mt-2">
+                        <button class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
+                            <span>Dashboard</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="dashboard-mobile" class="mobile-dropdown-content">
+                            <a href="user-dashboard.html" class="block py-2.5">User</a>
+                            <a href="admin-dashboard.html" class="block py-2.5">Admin</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3">
+                        <a href="login.html" class="bg-transparent border border-white/30 text-white w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-white/10 flex items-center justify-center gap-2 no-underline">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-white hover:text-primary flex items-center justify-center gap-2 shadow-lg no-underline">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="w-full flex-grow pt-[70px]">
+            
+            <section class="py-12 md:py-20 bg-theme-main border-b border-theme relative z-10">
+                <div class="container mx-auto px-4 max-w-4xl animate-fadeInUp">
+                    <div class="mb-6 flex flex-wrap items-center gap-3">
+                        <span id="dynamic-category" class="bg-secondary text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-md uppercase tracking-wide">
+                            Category
+                        </span>
+                        <span class="text-body-theme text-sm font-medium"><i class="far fa-calendar text-secondary mr-1"></i> <span id="dynamic-date">Date</span></span>
+                        <span class="text-body-theme text-sm font-medium hidden sm:inline">&bull;</span>
+                        <span class="text-body-theme text-sm font-medium"><i class="far fa-clock text-secondary mr-1"></i> <span id="dynamic-readtime">Time</span></span>
+                    </div>
+
+                    <h1 id="dynamic-title" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-heading-theme mb-8 leading-tight">
+                        Loading Article...
+                    </h1>
+
+                    <div class="flex items-center justify-between border-y border-theme py-6 mb-10">
+                        <div class="flex items-center gap-4">
+                            <div id="dynamic-author-initial" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg shadow-md border-2 border-secondary">
+                                A
+                            </div>
+                            <div>
+                                <h4 id="dynamic-author-name" class="font-bold text-heading-theme text-base md:text-lg leading-none mb-1">Author</h4>
+                                <span id="dynamic-author-role" class="text-xs md:text-sm text-body-theme font-medium">Role</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button class="w-10 h-10 rounded-full bg-card-theme border border-theme text-heading-theme flex items-center justify-center hover:bg-secondary hover:text-white hover:border-secondary transition-all shadow-sm">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="w-10 h-10 rounded-full bg-card-theme border border-theme text-heading-theme flex items-center justify-center hover:bg-secondary hover:text-white hover:border-secondary transition-all shadow-sm">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-[250px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl border border-theme mb-12">
+                        <img id="dynamic-image" src="" alt="Article Banner" class="w-full h-full object-cover">
+                    </div>
+
+                    <div id="dynamic-content" class="article-content max-w-3xl mx-auto">
+                        <div class="flex justify-center py-20">
+                            <div class="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="dynamic-tags" class="max-w-3xl mx-auto mt-12 flex flex-wrap gap-2 pt-6 border-t border-theme">
+                        <span class="font-bold text-heading-theme mr-2 pt-1">Tags:</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-5xl px-4">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-12 gap-4">
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-black text-heading-theme mb-2">Read Next</h2>
+                            <p class="text-secondary text-base font-bold uppercase tracking-wide block">Continue Leveling Up</p>
+                        </div>
+                        <a href="blog.html" class="flex text-secondary font-bold text-sm uppercase items-center hover:underline shrink-0 bg-secondary/10 px-4 py-2 rounded-lg">
+                            View All <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-col space-y-6">
+                        
+                        <a href="blog-details.html?topic=cs2-smokes" class="bg-card-theme rounded-2xl overflow-hidden border border-theme shadow-sm flex flex-col md:flex-row group block no-underline cursor-pointer transition-all hover:shadow-md hover:border-secondary">
+                            <div class="relative w-full md:w-1/3 h-52 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-theme">
+                                <img src="Images/Featured Story.jpg" alt="CS2 Smokes" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow w-full md:w-2/3">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-secondary text-xs font-bold uppercase tracking-wide">Game Update</span>
+                                    <span class="text-xs text-body-theme font-medium"><i class="far fa-clock mr-1"></i> 8 Min Read</span>
+                                </div>
+                                <h3 class="text-xl md:text-2xl font-bold text-heading-theme mb-2 group-hover:text-secondary transition-colors">How the New CS2 Smoke Physics Completely Change Default Executions</h3>
+                                <p class="text-sm text-body-theme mb-4 line-clamp-2 flex-grow">With the latest engine update, volumetric smokes interact entirely differently with HE grenades and environmental lighting.</p>
+                                <span class="text-secondary font-bold text-xs uppercase mt-auto flex items-center group-hover:underline">Read Article <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i></span>
+                            </div>
+                        </a>
+
+                        <a href="blog-details.html?topic=apex-energy-weapons" class="bg-card-theme rounded-2xl overflow-hidden border border-theme shadow-sm flex flex-col md:flex-row group block no-underline cursor-pointer transition-all hover:shadow-md hover:border-secondary">
+                            <div class="relative w-full md:w-1/3 h-52 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-theme">
+                                <img src="Images/Energy Weapon.jpg" alt="Apex Meta" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow w-full md:w-2/3">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-secondary text-xs font-bold uppercase tracking-wide">Apex Legends</span>
+                                    <span class="text-xs text-body-theme font-medium"><i class="far fa-clock mr-1"></i> 6 Min Read</span>
+                                </div>
+                                <h3 class="text-xl md:text-2xl font-bold text-heading-theme mb-2 group-hover:text-secondary transition-colors">Season 22 Weapon Tier List: The Energy Weapon Resurgence</h3>
+                                <p class="text-sm text-body-theme mb-4 line-clamp-2 flex-grow">With the recent drop rate changes, the Nemesis has returned to the top of the ALGS pick rates.</p>
+                                <span class="text-secondary font-bold text-xs uppercase mt-auto flex items-center group-hover:underline">Read Article <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i></span>
+                            </div>
+                        </a>
+
+                        <a href="blog-details.html?topic=crosshair-placement" class="bg-card-theme rounded-2xl overflow-hidden border border-theme shadow-sm flex flex-col md:flex-row group block no-underline cursor-pointer transition-all hover:shadow-md hover:border-secondary">
+                            <div class="relative w-full md:w-1/3 h-52 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-theme">
+                                <img src="Images/The Science of Crosshair .jpg" alt="Mechanics" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow w-full md:w-2/3">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-secondary text-xs font-bold uppercase tracking-wide">Mechanics</span>
+                                    <span class="text-xs text-body-theme font-medium"><i class="far fa-clock mr-1"></i> 5 Min Read</span>
+                                </div>
+                                <h3 class="text-xl md:text-2xl font-bold text-heading-theme mb-2 group-hover:text-secondary transition-colors">The Science of Crosshair Placement</h3>
+                                <p class="text-sm text-body-theme mb-4 line-clamp-2 flex-grow">Stop reacting. Learn how to place your crosshair so enemies walk right into your shots.</p>
+                                <span class="text-secondary font-bold text-xs uppercase mt-auto flex items-center group-hover:underline">Read Article <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i></span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 bg-theme-main border-y border-theme relative z-10 overflow-hidden">
+                <div class="container mx-auto px-4 max-w-4xl relative z-10 text-center">
+                    <div class="text-5xl text-secondary mb-6 animate-pulse"><i class="fas fa-envelope-open-text"></i></div>
+                    <h2 class="text-4xl md:text-6xl font-black text-heading-theme mb-4">Never Miss a Meta Shift</h2>
+                    <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block mb-10">Join 25,000+ players getting smarter weekly</p>
+                    
+                    <p class="text-xl text-body-theme mx-auto mb-10 font-medium leading-relaxed">
+                        Subscribe to the AimForge Dispatch. Get the week's best articles, patch analysis, and exclusive free training routines delivered directly to your inbox every Friday.
+                    </p>
+
+                    <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+                        <input type="email" placeholder="Enter your email address" class="w-full sm:w-2/3 px-6 py-4 rounded-2xl bg-theme-alt border border-theme text-body-theme placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary font-medium shadow-sm" required>
+                        <button type="submit" class="w-full sm:w-auto bg-secondary text-white px-8 py-4 rounded-2xl font-black text-lg hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all shadow-[0_0_20px_rgba(122,30,44,0.5)] transform hover:scale-105 whitespace-nowrap">
+                            Subscribe <i class="fas fa-paper-plane ml-2 text-sm"></i>
+                        </button>
+                    </form>
+                    <p class="text-body-theme text-xs mt-4 opacity-70">We respect your privacy. No spam, just pure strategy.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-[#03090D] py-12 md:py-16 shrink-0 relative border-t border-white/10">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
+                    <div class="text-center sm:text-left">
+                        <a href="index.html" class="flex items-center justify-center sm:justify-start gap-3 mb-6 no-underline">
+                            <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                                <i class="fas fa-crosshairs text-white"></i>
+                            </div>
+                            <div>
+                                <span class="text-xl md:text-2xl font-bold text-white block">Aim<span class="text-secondary">Forge</span></span>
+                            </div>
+                        </a>
+                        <p class="text-gray-400 mb-6 font-medium text-sm">The ultimate E-Sports training platform. Connect with pro coaches, track your stats, and forge your legacy.</p>
+                        <div class="flex justify-center sm:justify-start space-x-3 sm:space-x-4">
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-discord"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitch"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Games</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Valorant Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">CS2 Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Apex Legends</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">League of Legends</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Platform</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="programs.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Programs</a></li>
+                            <li><a href="videolibrary.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Video Library</a></li>
+                            <li><a href="pricing.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Pricing</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Contact Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-4 text-white">Newsletter</h3>
+                        <p class="text-gray-400 mb-6 text-base font-medium leading-relaxed">Subscribe for meta updates, free tips, and exclusive coach AMAs.</p>
+                        <form class="flex flex-col gap-3">
+                            <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary font-medium shadow-sm text-center sm:text-left" required>
+                            <button type="submit" class="w-full bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-white hover:text-primary transition shadow-sm">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium relative text-center sm:text-left">
+                    <p class="mb-4 md:mb-0 text-gray-400">© 2026 AimForge. All rights reserved.</p>
+                    
+                    <div class="flex justify-center sm:justify-end gap-6 w-full md:w-auto">
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <button id="scroll-top" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-secondary text-white rounded-full shadow-lg hidden hover:bg-white hover:text-primary transition z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // --- DYNAMIC BLOG ARTICLE DATABASE ---
+        const articleDatabase = {
+            'cs2-smokes': {
+                title: 'How the New CS2 Smoke Physics Completely Change Default Executions',
+                category: 'Game Update',
+                date: 'Oct 12, 2026',
+                readTime: '8 Min Read',
+                authorName: 'Anders "Flick"',
+                authorRole: 'Head CS2 Coach',
+                authorInitial: 'A',
+                tags: ['#CS2', '#Smokes', '#MetaUpdate', '#Tactics'],
+                image: 'Images/Featured Story.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        With the latest engine update, volumetric smokes interact entirely differently with HE grenades and environmental lighting. We break down what this means for your T-side defaults on Mirage and Inferno.
+                    </p>
+                    <p>Counter-Strike 2 has completely overhauled how utility interacts with the map. Gone are the days of one-way smokes and static grey blobs. Volumetric smokes now fill spaces dynamically, meaning standard default executes have completely changed.</p>
+                    <h2>The HE Grenade Interaction</h2>
+                    <p>The most massive change is the ability to temporarily disperse a smoke with an HE Grenade. This forces Terrorist teams to rethink how they hold map control. If you smoke top Mid on Mirage, a CT can now nade it and peek window instantly.</p>
+                    <ul>
+                        <li><strong>Baiting Nades:</strong> Executing teams must now bait out defensive HE grenades before committing to a smoke wall.</li>
+                        <li><strong>Fast Pacing:</strong> Because smokes can be broken, fast hits are becoming significantly more viable than slow, methodical defaults.</li>
+                    </ul>
+                    <blockquote>"You can no longer throw a smoke and turn your back to it. Every piece of utility is now a dynamic entity that can be countered."</blockquote>
+                `
+            },
+            'valorant-sentinels': {
+                title: 'Agent Changes: Why Sentinels are the New Duelists',
+                category: 'Valorant',
+                date: 'Oct 10, 2026',
+                readTime: '5 Min Read',
+                authorName: 'Coach Sarah',
+                authorRole: 'Head Tactician',
+                authorInitial: 'S',
+                tags: ['#Valorant', '#MetaAnalysis', '#PatchNotes', '#Guides'],
+                image: 'Images/Agent Changes.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        A deep statistical look into how the recent trap buffs have inadvertently created a highly aggressive meta for defensive agents. If you are still playing Cypher strictly on site, you're leaving ELO on the table.
+                    </p>
+                    <p>For the past four episodes, the role of a Sentinel in tactical shooters was crystal clear: anchor the site, gather passive info, and delay the execute. Duelists took space, Initiators scanned for space, and Sentinels held the space.</p>
+                    <p>However, Patch 10.04 completely shattered this philosophy. With the decrease in trap setup times and the massive buffs to tripwire reactivation across the board, the optimal way to play defensive characters has radically shifted from passive anchoring to aggressive lurking and rapid repositioning.</p>
+                    <h2>The Math Behind the Aggression</h2>
+                    <p>Let's look at the numbers. In Radiant lobbies over the last 72 hours, Sentinel first-blood attempts have spiked by <strong>42%</strong>. Why?</p>
+                    <ul>
+                        <li><strong>Setup Speed:</strong> Cypher and Killjoy can now deploy utility and recall it almost instantly. This allows them to take aggressive peek timings at the start of rounds and fall back securely.</li>
+                        <li><strong>Economy Changes:</strong> The cost reduction on Sentinel utility means players aren't completely broke if their flank watch gets destroyed early.</li>
+                        <li><strong>Information Denial:</strong> Pushing up allows Sentinels to deny map control before the attackers even establish a default.</li>
+                    </ul>
+                    <blockquote>"The best defense is no longer a strong anchor. The best defense is making the attackers terrified to take default map control because they know a Cypher trip is waiting for them in their own spawn."</blockquote>
+                    <h2>How to Adapt Your Playstyle</h2>
+                    <p>If you are queuing up tonight, here is the new blueprint for playing a modern Sentinel:</p>
+                    <h3>1. The "Rubber-Band" Lurk</h3>
+                    <p>Stop defaulting to your standard site setups. Instead, aggressively push a main choke point at the barrier drop with your Duelist. Drop a piece of utility deep in enemy territory to secure that space, then immediately fall back (rubber-band) to your home site. You've now secured massive map control and forced the enemy team to clear angles they shouldn't have to.</p>
+                    <h3>2. Mid-Round Utility Shuffling</h3>
+                    <p>Because recall times are down to a fraction of a second, leaving your utility on a site where there is no pressure is a massive mistake. If your team spots the bomb on the opposite side of the map, pull your gear immediately and start fast-flanking.</p>
+                `
+            },
+            'apex-energy-weapons': {
+                title: 'Season 22 Weapon Tier List: The Energy Weapon Resurgence',
+                category: 'Apex Legends',
+                date: 'Oct 08, 2026',
+                readTime: '6 Min Read',
+                authorName: 'Coach Marcus',
+                authorRole: 'Apex ALGS Analyst',
+                authorInitial: 'M',
+                tags: ['#ApexLegends', '#TierList', '#Weapons', '#ALGS'],
+                image: 'Images/Energy Weapon.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        With the recent drop rate changes, the Nemesis has returned to the top of the ALGS pick rates. Here is how to control the recoil pattern and dominate the mid-range.
+                    </p>
+                    <p>Energy weapons have always had a love-hate relationship with the Apex community. They either dominate the meta or fall into complete obscurity. In Season 22, it is unequivocally the former.</p>
+                    <h2>The Nemesis is Back</h2>
+                    <p>The recent adjustments to energy ammo spawn rates and Turbocharger availability have made running dual-energy setups viable again. The Nemesis Burst AR is currently out-damaging the R-301 at ranges of 50-70 meters.</p>
+                    <blockquote>"If your team isn't running at least one Nemesis to secure entry knocks, you are putting yourselves at a massive TTK disadvantage in endgame zones."</blockquote>
+                `
+            },
+            'high-refresh-monitors': {
+                title: 'Are High Refresh Rate Monitors Still Giving You an Advantage?',
+                category: 'Hardware',
+                date: 'Oct 05, 2026',
+                readTime: '4 Min Read',
+                authorName: 'Tech Team',
+                authorRole: 'Hardware Reviewers',
+                authorInitial: 'T',
+                tags: ['#Hardware', '#Monitors', '#FPS', '#Tech'],
+                image: 'Images/Refresh Rate Monitors.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        We compare the reaction times and hit registry between 240Hz, 360Hz, and the new 540Hz esports panels. Is the upgrade actually worth your money?
+                    </p>
+                    <p>For years, 144Hz was the gold standard. Then 240Hz became the competitive baseline. Now, hardware manufacturers are pushing 500Hz+ panels. But can the human eye actually perceive the difference?</p>
+                    <h2>System Latency vs. Refresh Rate</h2>
+                    <p>Our testing shows that while 540Hz feels undeniably smooth, the raw reaction time advantage over 360Hz is negligible for 99% of players. What matters more is your overall system latency.</p>
+                    <ul>
+                        <li>Ensure Nvidia Reflex is turned ON.</li>
+                        <li>Cap your framerate just slightly below your monitor's refresh rate.</li>
+                        <li>Disable full-screen optimizations in Windows.</li>
+                    </ul>
+                `
+            },
+            'crosshair-placement': {
+                title: 'The Science of Crosshair Placement',
+                category: 'Mechanics',
+                date: 'Oct 02, 2026',
+                readTime: '5 Min Read',
+                authorName: 'Coach Tenzin',
+                authorRole: 'Aim Specialist',
+                authorInitial: 'T',
+                tags: ['#Mechanics', '#Aim', '#Crosshair', '#Guides'],
+                image: 'Images/The Science of Crosshair .jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        Stop reacting. Learn how to place your crosshair so enemies walk right into your shots. If you have to flick your wrist to get a kill, your positioning was wrong.
+                    </p>
+                    <p>The biggest mistake low-ELO players make is relying on their raw reaction time. Professionals don't actually react faster than you; they just have to move their mouse less.</p>
+                    <h2>The "Head-Level" Myth</h2>
+                    <p>Everyone knows to aim at head level. But where on the horizontal axis should you aim? If you hold an angle tight to the wall, a fast-swinging enemy will pass your crosshair before you can click. You must offset your crosshair based on the angle advantage.</p>
+                    <blockquote>"Hold wider for fast swings, hold tighter for slow clears. Understanding geometry is more important than raw flicking speed."</blockquote>
+                `
+            },
+            'counter-strafing': {
+                title: 'Advanced Counter-Strafing Tactics',
+                category: 'Movement',
+                date: 'Sep 28, 2026',
+                readTime: '7 Min Read',
+                authorName: 'Coach Alex',
+                authorRole: 'Movement Coach',
+                authorInitial: 'A',
+                tags: ['#Movement', '#Mechanics', '#CS2', '#Valorant'],
+                image: 'Images/Advanced counter.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        Master the mechanics of stopping instantly to achieve perfect first-bullet accuracy in any tactical shooter.
+                    </p>
+                    <p>In games like CS2 and Valorant, shooting while moving incurs massive accuracy penalties. Counter-strafing is the act of tapping the opposite directional key to instantly kill your momentum.</p>
+                    <h2>The Rhythm of the Peek</h2>
+                    <p>It's not just about stopping; it's about timing the shot perfectly with the deadzone. If you are holding 'D' to strafe right, tapping 'A' creates a microsecond of perfect stillness. You must fire in that exact window.</p>
+                `
+            },
+            'kovaaks-routine': {
+                title: 'The Ultimate 15-Minute KovaaKs Routine',
+                category: 'Training',
+                date: 'Sep 24, 2026',
+                readTime: '4 Min Read',
+                authorName: 'AimForge Bot',
+                authorRole: 'Training Algorithm',
+                authorInitial: 'A',
+                tags: ['#Training', '#Kovaaks', '#Aim', '#Routine'],
+                image: 'Images/The Ultimate.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        A structured daily routine designed specifically for low-TTK tactical shooters. Build muscle memory fast without burning out your wrist.
+                    </p>
+                    <p>Spending 3 hours a day in an aim trainer is detrimental to your in-game performance. You need focused, targeted practice that translates to server mechanics.</p>
+                    <h2>The 15-Minute Warmup</h2>
+                    <ul>
+                        <li><strong>5 Minutes - Smooth Tracking:</strong> Focus on perfectly smooth lines, not speed. (Scenario: Centering I)</li>
+                        <li><strong>5 Minutes - Micro-Flicking:</strong> Emulate clicking heads at long ranges. (Scenario: 1w6ts small)</li>
+                        <li><strong>5 Minutes - Target Switching:</strong> Moving rapidly between targets while maintaining trigger discipline. (Scenario: PatTargetSwitch)</li>
+                    </ul>
+                `
+            },
+            'pre-match-routine': {
+                title: 'How to Build the Perfect Pre-Match Routine',
+                category: 'Guide',
+                date: 'Sep 20, 2026',
+                readTime: '5 Min Read',
+                authorName: 'Coach Sarah',
+                authorRole: 'Head Tactician',
+                authorInitial: 'S',
+                tags: ['#Routine', '#Mental', '#Warmup', '#Guides'],
+                image: 'Images/blog1.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        Physical stretches, mental resets, and the exact 10-minute KovaaKs scenario list to run before queueing ranked.
+                    </p>
+                    <p>Your first game of the day shouldn't be your warmup. Jumping straight into ranked cold is the fastest way to lose ELO and ruin your mental state for the session.</p>
+                    <h2>The 3-Step Protocol</h2>
+                    <p>A good routine touches on mechanics, physical readiness, and mental framing.</p>
+                    <ul>
+                        <li><strong>Physical:</strong> Wrist stretches and hand warmers. Cold hands react 15% slower.</li>
+                        <li><strong>Mechanical:</strong> 10 minutes in the practice range tracking moving bots. Do NOT shoot yet, just track.</li>
+                        <li><strong>Mental:</strong> Set one specific goal for the session (e.g., "I will communicate all my utility usage").</li>
+                    </ul>
+                `
+            },
+            'igl-fundamentals': {
+                title: 'IGL Fundamentals: Managing Your Economy',
+                category: 'Guide',
+                date: 'Sep 15, 2026',
+                readTime: '6 Min Read',
+                authorName: 'Coach Anders',
+                authorRole: 'Head CS2 Coach',
+                authorInitial: 'A',
+                tags: ['#IGL', '#Economy', '#Strategy', '#CS2'],
+                image: 'Images/Featured Story.jpg',
+                content: `
+                    <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                        Stop calling force buys that ruin your half. The mathematical approach to tracking enemy bankrolls and calling ecos.
+                    </p>
+                    <p>Being an In-Game Leader isn't just about calling strats; it's about resource management. If you manage your team's economy poorly, you are mathematically guaranteeing lost rounds.</p>
+                    <h2>Tracking the Enemy Bank</h2>
+                    <p>You don't need a calculator, but you do need to understand loss bonuses. If the enemy team loses three rounds in a row, they are getting full loss bonus. Do not assume they are broke just because they lost.</p>
+                    <blockquote>"A disciplined team that knows when to save will beat a mechanically superior team that forces every round."</blockquote>
+                `
+            }
+        };
+
+        // Fallback Article if topic is missing or invalid
+        const fallbackArticle = {
+            title: 'Welcome to the AimForge Journal',
+            category: 'Platform Update',
+            date: 'Today',
+            readTime: '1 Min Read',
+            authorName: 'AimForge Staff',
+            authorRole: 'Community Management',
+            authorInitial: 'A',
+            tags: ['#AimForge', '#Welcome', '#ESports'],
+            image: 'Images/blog1.jpg',
+            content: `
+                <p class="text-xl font-medium text-heading-theme mb-8 leading-relaxed italic">
+                    Select an article from our main blog page to load full details and pro insights.
+                </p>
+                <p>Use the navigation above or the related posts below to explore our deep dives into meta updates, hardware reviews, and training routines.</p>
+            `
+        };
+
+        // DOM Content Loaded Logic for Dynamic Injection
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const topic = urlParams.get('topic') || 'valorant-sentinels'; // Default fallback
+            
+            const articleData = articleDatabase[topic] || fallbackArticle;
+            
+            // Inject Text and Images
+            document.getElementById('dynamic-title').innerText = articleData.title;
+            document.title = articleData.title + " | AimForge Blog";
+            document.getElementById('dynamic-category').innerText = articleData.category;
+            document.getElementById('dynamic-date').innerText = articleData.date;
+            document.getElementById('dynamic-readtime').innerText = articleData.readTime;
+            document.getElementById('dynamic-author-name').innerText = articleData.authorName;
+            document.getElementById('dynamic-author-role').innerText = articleData.authorRole;
+            document.getElementById('dynamic-author-initial').innerText = articleData.authorInitial;
+            document.getElementById('dynamic-image').src = articleData.image;
+            document.getElementById('dynamic-content').innerHTML = articleData.content;
+
+            // Generate Tags dynamically
+            const tagsContainer = document.getElementById('dynamic-tags');
+            tagsContainer.innerHTML = '<span class="font-bold text-heading-theme mr-2 pt-1">Tags:</span>'; // Reset tags
+            articleData.tags.forEach(tag => {
+                const tagLink = document.createElement('span');
+                tagLink.className = "px-4 py-2 bg-theme-alt text-body-theme text-sm font-bold rounded-lg border border-theme cursor-pointer hover:border-secondary hover:text-white transition";
+                tagLink.innerText = tag;
+                tagsContainer.appendChild(tagLink);
+            });
+        });
+
+        // --- THEME & RTL LOGIC ---
+        const desktopThemeToggleBtn = document.getElementById('desktop-theme-toggle-btn');
+        const desktopThemeIcon = document.getElementById('desktop-theme-icon');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+        const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
+        const desktopRtlToggleBtn = document.getElementById('desktop-rtl-toggle-btn');
+        
+        // Initialize Theme
+        const currentTheme = localStorage.getItem('theme') || 'dark'; 
+        htmlElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            if (desktopThemeIcon) desktopThemeIcon.className = 'fas fa-sun';
+            if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+            
+            if (desktopThemeIcon) desktopThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            if (mobileThemeIcon) mobileThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        if (desktopThemeToggleBtn) desktopThemeToggleBtn.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        
+        // Desktop RTL Toggle
+        const currentDir = localStorage.getItem('direction') || 'ltr';
+        htmlElement.setAttribute('dir', currentDir);
+        
+        function toggleRTL() {
+            const direction = htmlElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+            htmlElement.setAttribute('dir', direction);
+            localStorage.setItem('direction', direction);
+        }
+        if (desktopRtlToggleBtn) desktopRtlToggleBtn.addEventListener('click', toggleRTL);
+        if (mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+
+        // --- DROPDOWNS & MENU ---
+        function toggleDesktopDropdown(id) {
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if(d.id !== id) d.classList.remove('active');
+            });
+            document.getElementById(id).classList.toggle('active');
+        }
+        
+        function toggleMobileDropdown(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+        }
+        if(closeMobileMenu) {
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        }
+
+        // Active Link Highlighting
+        const currentPath = window.location.pathname.split('/').pop() || 'blog.html';
+        
+        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+            if (link.getAttribute('href') === 'blog.html' || currentPath === 'blog.html' || currentPath.includes('blog-details')) {
+                if (link.getAttribute('href') === 'blog.html') {
+                    link.classList.add('active');
+                    const parent = link.closest('.dropdown');
+                    if (parent) parent.querySelector('.nav-link')?.classList.add('active');
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // --- SMOOTH SCROLL & OFFSET ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    mobileMenu.classList.remove('active'); 
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, 
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- SCROLL TOP BUTTON ---
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('hidden', window.scrollY <= 300);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        window.addEventListener('resize', () => {
+            if(window.innerWidth >= 1280) mobileMenu.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

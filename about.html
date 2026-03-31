@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr" class="scroll-smooth w-full overflow-x-hidden dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="About AimForge - Premium E-Sports Training & Coaching Platform.">
+    <title>About | AimForge</title>
+    
+    <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
+    
+    <script src="tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0B1D2A',   // Dark Blue
+                        secondary: '#7A1E2C', // Dark Red 
+                        base: '#000000',      
+                        cream: '#FFFFFF',     
+                        warmgray: '#9CA3AF',  
+                        charcoal: '#111827',  
+                        'card-dark': '#122230'// Dark Blue Card
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-color: #0B1D2A; 
+            --secondary-color: #7A1E2C; 
+            --bg-color: #FFFFFF; 
+            --bg-alt: #F3F4F6; 
+            --card-bg: #FFFFFF;    
+            --text-main: #1F2937; 
+            --text-heading: #000000; 
+            --navbar-bg: #0B1D2A; 
+            --border-color: #E5E7EB; 
+        }
+        
+        /* Dark Blue / Deep Dark Mode */
+        [data-theme="dark"] {
+            --primary-color: #0B1D2A;   
+            --secondary-color: #7A1E2C; 
+            --bg-color: #050E14;        /* Very Dark Navy Background */
+            --bg-alt: #08151E;          /* Alternating Dark Section */
+            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
+            --text-main: #E5E7EB;       /* Light Grey Text */
+            --text-heading: #FFFFFF;    /* Pure White Headings */
+            --navbar-bg: #050E14;       /* Dark Navbar */
+            --border-color: #172F43;    /* Dark border */
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body { 
+            overflow-x: hidden !important; 
+            width: 100%; 
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 { color: var(--text-heading); }
+        p, label { color: var(--text-main); }
+        
+        .bg-theme-main { background-color: var(--bg-color); }
+        .bg-theme-alt { background-color: var(--bg-alt); }
+        .bg-card-theme { background-color: var(--card-bg); }
+        
+        .text-heading-theme { color: var(--text-heading); }
+        .text-body-theme { color: var(--text-main); }
+        .border-theme { border-color: var(--border-color); }
+        
+        .bg-primary { background-color: var(--primary-color) !important; color: #FFFFFF !important; } 
+        .bg-secondary { background-color: var(--secondary-color) !important; color: #FFFFFF !important; }
+
+        /* Navbar Styles */
+        .navbar-container {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background-color 0.3s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #FFFFFF; 
+            padding: 8px 10px; 
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .nav-link:hover { color: var(--secondary-color); }
+        .nav-link.active { color: var(--secondary-color); font-weight: 600; }
+        
+        /* Dropdowns */
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--navbar-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        #dashboard-dropdown .dropdown-menu { left: auto; right: 0; }
+
+        .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block; padding: 12px 20px; color: #FFFFFF;
+            transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
+        .dropdown-arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%); transition: transform 0.3s ease;
+            background-color: var(--navbar-bg); color: #FFFFFF; 
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        
+        .mobile-dropdown-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            padding-left: 20px; background-color: rgba(255,255,255,0.05); border-radius: 8px;
+        }
+        .mobile-dropdown-content a { color: #E5E7EB; text-decoration: none;} 
+        .mobile-dropdown-content a:hover { color: var(--secondary-color); }
+        .mobile-dropdown-content.active { max-height: 500px; margin: 5px 0; }
+        
+        @media (max-width: 1279px) {
+            .desktop-nav, .navbar-right-desktop { display: none !important; }
+            .mobile-menu-button { display: flex !important; }
+        }
+        @media (min-width: 1280px) {
+            .desktop-nav, .navbar-right-desktop { display: flex !important; }
+            .mobile-menu-button { display: none !important; }
+        }
+
+        .progress-bar-fill {
+            transition: width 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden m-0 p-0 antialiased bg-theme-main text-body-theme">
+
+    <div class="relative w-full max-w-full overflow-x-hidden flex flex-col min-h-screen">
+        
+        <nav id="navbar" class="navbar-container fixed top-0 inset-x-0 z-[1000]">
+            <div class="container mx-auto px-4 w-full">
+                <div class="flex items-center justify-between">
+                    
+                    <a href="index.html" class="flex items-center gap-3 no-underline transition-transform duration-300 hover:scale-105 group">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-xl md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="desktop-nav items-center space-x-0 xl:space-x-1 hidden xl:flex">
+                        <div class="dropdown" id="home-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('home-dropdown')">
+                                Home <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item">Home 1</a>
+                                <a href="home-2.html" class="dropdown-item">Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-link active">About</a>
+                        <a href="programs.html" class="nav-link">Programs</a>
+                        <a href="videolibrary.html" class="nav-link">Video Library</a>
+                        <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                        <a href="faq.html" class="nav-link">FAQ</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+
+                        <div class="dropdown" id="dashboard-dropdown">
+                            <div class="nav-link" onclick="toggleDesktopDropdown('dashboard-dropdown')">
+                                Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <a href="user-dashboard.html" class="dropdown-item">User</a>
+                                <a href="admin-dashboard.html" class="dropdown-item">Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="navbar-right-desktop flex items-center gap-2 lg:gap-3 shrink-0">
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
+                            <i class="fas fa-moon" id="desktop-theme-icon"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-rtl-toggle-btn" title="Toggle RTL">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        
+                        <a href="login.html" class="h-10 bg-transparent border border-white/40 text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white/20 shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white hover:text-primary shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                    
+                    <button id="mobile-menu-btn" class="hidden text-white cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[9999] overflow-y-auto">
+            <div class="p-4 sm:p-6">
+                <div class="flex flex-wrap justify-between items-center mb-8 gap-3">
+                    <a href="index.html" class="flex items-center gap-2 no-underline">
+                        <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                            <i class="fas fa-crosshairs text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                        </div>
+                    </a>
+                    
+                    <div class="flex items-center bg-gray-800 rounded-lg px-2 py-1 shadow-md border border-white/10">
+                        <button id="mobile-theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                        </button>
+                        <button id="mobile-rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                        <button id="close-mobile-menu" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-xl sm:text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="space-y-1">
+                    <div>
+                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-white font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
+                            <span>Home</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="home-mobile" class="mobile-dropdown-content">
+                            <a href="index.html" class="block py-2.5">Home 1</a>
+                            <a href="home-2.html" class="block py-2.5">Home 2</a>
+                        </div>
+                    </div>
+                    
+                    <a href="about.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-white/10 transition-colors"><span>About</span></a>
+                    <a href="programs.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Programs</span></a>
+                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Video Library</span></a>
+                    <a href="blog.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Blog</span></a>
+                    <a href="pricing.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Pricing</span></a>
+                    <a href="faq.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>FAQ</span></a>
+                    <a href="contact.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Contact</span></a>
+                    
+                    <div class="mt-2">
+                        <button class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
+                            <span>Dashboard</span>
+                            <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
+                        </button>
+                        <div id="dashboard-mobile" class="mobile-dropdown-content">
+                            <a href="user-dashboard.html" class="block py-2.5">User</a>
+                            <a href="admin-dashboard.html" class="block py-2.5">Admin</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3">
+                        <a href="login.html" class="bg-transparent border border-white/30 text-white w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-white/10 flex items-center justify-center gap-2 no-underline">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="login.html?mode=signup" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-white hover:text-primary flex items-center justify-center gap-2 shadow-lg no-underline">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="w-full flex-grow">
+            
+            <section class="relative w-full min-h-[100dvh] bg-primary flex items-center justify-center overflow-hidden z-10 pt-[70px] pb-12">
+                <div class="absolute inset-0 z-0"> 
+                    <img src="Images/about.jpg" alt="About AimForge" class="w-full h-full object-cover object-center scale-105 animate-pulse-slow">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#0B1D2A]/70 via-[#0B1D2A]/50 to-[#0B1D2A]/90"></div>
+                </div>
+                
+                <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center text-center animate-fadeInUp">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl uppercase tracking-tighter">
+                        About <span class="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-red-500">AimForge</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-300 max-w-2xl leading-relaxed font-medium mx-auto drop-shadow-md">
+                        Elevating the competitive standards of gaming through expert coaching, data-driven methodology, and an unstoppable community.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Our Story in Esports</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">From Passionate Players to Global Leaders</p>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+                        <div class="w-full lg:w-1/2 relative">
+                            <div class="absolute -inset-4 bg-secondary/20 rounded-3xl transform -rotate-3 z-0"></div>
+                            <img src="Images/Our Story.jpg" alt="Our Story" class="relative z-10 rounded-3xl shadow-xl w-full object-cover aspect-video border-2 border-theme">
+                        </div>
+                        <div class="w-full lg:w-1/2 space-y-6">
+                            <p class="text-lg text-body-theme leading-relaxed">
+                                AimForge was born out of a simple frustration: climbing the competitive ladder shouldn't require guessing. Founded in 2022 by former professional players, we noticed a massive gap between casual tutorials and genuine, professional-grade coaching.
+                            </p>
+                            <p class="text-lg text-body-theme leading-relaxed">
+                                What started as a small Discord server offering free VOD reviews quickly exploded into a fully-fledged academy. Today, AimForge is home to thousands of aspiring athletes aiming to perfect their crosshair placement, utility usage, and macro-level decision making.
+                            </p>
+                            <div class="pt-4 flex gap-4">
+                                <div class="bg-card-theme p-4 rounded-xl border border-theme flex-1 text-center shadow-sm">
+                                    <h4 class="text-3xl font-black text-heading-theme mb-1">2022</h4>
+                                    <span class="text-sm font-bold text-secondary uppercase">Founded</span>
+                                </div>
+                                <div class="bg-card-theme p-4 rounded-xl border border-theme flex-1 text-center shadow-sm">
+                                    <h4 class="text-3xl font-black text-heading-theme mb-1">50K+</h4>
+                                    <span class="text-sm font-bold text-secondary uppercase">Players Trained</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Our Vision for Pro Gamers</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">Democratizing Professional Tier Training</p>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto text-center space-y-8">
+                        <i class="fas fa-eye text-5xl text-secondary mb-4 opacity-80"></i>
+                        <h3 class="text-2xl md:text-4xl font-black text-heading-theme leading-tight">
+                            "We believe that every dedicated player deserves access to the exact methodologies, setups, and strategic blueprints used by tier-one professionals."
+                        </h3>
+                        <p class="text-xl text-body-theme max-w-2xl mx-auto">
+                            Our platform is continually evolving to bridge the gap between amateur ranked queues and stage-ready competitive rosters. We don't just teach you how to aim; we teach you how to think like a champion.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Why AimForge is Different</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">The ultimate competitive advantage</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Data-Driven Feedback</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">We use advanced API integrations to pull your match data, identifying statistical weaknesses in your TTK, crosshair placement, and economic choices.</p>
+                        </div>
+                        
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Micro VOD Reviews</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">Unlike generic tips, our coaches dissect your exact gameplay frame-by-frame, pointing out positional errors and providing actionable corrections.</p>
+                        </div>
+
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Custom Routines</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">Get personalized daily AimLab/KovaaKs playlists directly integrated into your dashboard, built specifically to cure your mechanical flaws.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Coaching Method Explained</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">Our 4-Step Blueprint to Radiant/Global Elite</p>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-6">
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                            <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">1</div>
+                            <h4 class="font-bold text-heading-theme text-lg mb-2">Assess</h4>
+                            <p class="text-body-theme text-sm">Initial VOD review and stat analysis to determine your baseline skill and bad habits.</p>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
+                        
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                            <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">2</div>
+                            <h4 class="font-bold text-heading-theme text-lg mb-2">Drill</h4>
+                            <p class="text-body-theme text-sm">Targeted mechanical training and custom server utility practice based on step one.</p>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
+                        
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                            <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">3</div>
+                            <h4 class="font-bold text-heading-theme text-lg mb-2">Execute</h4>
+                            <p class="text-body-theme text-sm">Live 1-on-1 coaching during matches to fix macro decision-making in real-time.</p>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
+
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                            <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">4</div>
+                            <h4 class="font-bold text-heading-theme text-lg mb-2">Dominate</h4>
+                            <p class="text-body-theme text-sm">Join our internal tournaments and scrims to put your new skills to the ultimate test.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Our Core Values</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">What Drives Our Community Forward</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Integrity & Respect</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">We believe in fair play, honest feedback, and creating a non-toxic environment for all players to grow and learn.</p>
+                        </div>
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Relentless Dedication</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">Improvement takes time. We are committed to providing the resources needed for long-term, sustainable growth in esports.</p>
+                        </div>
+                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-heading-theme mb-3">Constant Innovation</h3>
+                            <p class="text-body-theme text-sm leading-relaxed">The meta constantly shifts. We continuously update our curriculum and analytics tools to keep our players ahead of the curve.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
+                <div class="container mx-auto max-w-7xl px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Platform Achievements</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">The numbers behind the success</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div class="p-6">
+                            <i class="fas fa-users text-4xl text-secondary mb-4"></i>
+                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">50k+</h3>
+                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Active Users</p>
+                        </div>
+                        <div class="p-6">
+                            <i class="fas fa-video text-4xl text-secondary mb-4"></i>
+                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">12k+</h3>
+                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">VODs Reviewed</p>
+                        </div>
+                        <div class="p-6">
+                            <i class="fas fa-trophy text-4xl text-secondary mb-4"></i>
+                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">500+</h3>
+                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Tournaments</p>
+                        </div>
+                        <div class="p-6">
+                            <i class="fas fa-medal text-4xl text-secondary mb-4"></i>
+                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">#1</h3>
+                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Training Platform</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-[#03090D] py-12 md:py-16 shrink-0 relative border-t border-white/10">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
+                    <div class="text-center sm:text-left">
+                        <a href="index.html" class="flex items-center justify-center sm:justify-start gap-3 mb-6 no-underline">
+                            <div class="relative w-10 h-10 bg-black rounded-lg flex items-center justify-center shrink-0 border-2 border-secondary overflow-hidden">
+                                <i class="fas fa-crosshairs text-white"></i>
+                            </div>
+                            <div>
+                                <span class="text-xl md:text-2xl font-bold text-white block">Aim<span class="text-secondary">Forge</span></span>
+                            </div>
+                        </a>
+                        <p class="text-gray-400 mb-6 font-medium text-sm">The ultimate E-Sports training platform. Connect with pro coaches, track your stats, and forge your legacy.</p>
+                        <div class="flex justify-center sm:justify-start space-x-3 sm:space-x-4">
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-discord"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fab fa-twitch"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Games</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Valorant Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">CS2 Coaching</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">Apex Legends</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition font-medium no-underline">League of Legends</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-6 text-white">Platform</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><a href="programs.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Programs</a></li>
+                            <li><a href="videolibrary.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Video Library</a></li>
+                            <li><a href="pricing.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Pricing</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition font-medium no-underline">Contact Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold mb-4 text-white">Newsletter</h3>
+                        <p class="text-gray-400 mb-6 text-base font-medium leading-relaxed">Subscribe for meta updates, free tips, and exclusive coach AMAs.</p>
+                        <form class="flex flex-col gap-3">
+                            <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary font-medium shadow-sm text-center sm:text-left" required>
+                            <button type="submit" class="w-full bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-white hover:text-primary transition shadow-sm">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium relative text-center sm:text-left">
+                    <p class="mb-4 md:mb-0 text-gray-400">© 2026 AimForge. All rights reserved.</p>
+                    
+                    <div class="flex justify-center sm:justify-end gap-6 w-full md:w-auto">
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition no-underline">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <button id="scroll-top" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-secondary text-white rounded-full shadow-lg hidden hover:bg-white hover:text-primary transition z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // --- THEME & RTL LOGIC ---
+        const desktopThemeToggleBtn = document.getElementById('desktop-theme-toggle-btn');
+        const desktopThemeIcon = document.getElementById('desktop-theme-icon');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+        const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
+        const desktopRtlToggleBtn = document.getElementById('desktop-rtl-toggle-btn');
+        
+        // Initialize Theme - Enforcing dark mode defaults
+        const currentTheme = localStorage.getItem('theme') || 'dark'; 
+        htmlElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            if (desktopThemeIcon) desktopThemeIcon.className = 'fas fa-sun';
+            if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+            
+            if (desktopThemeIcon) desktopThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            if (mobileThemeIcon) mobileThemeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        if (desktopThemeToggleBtn) desktopThemeToggleBtn.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        
+        // Desktop RTL Toggle
+        const currentDir = localStorage.getItem('direction') || 'ltr';
+        htmlElement.setAttribute('dir', currentDir);
+        
+        function toggleRTL() {
+            const direction = htmlElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+            htmlElement.setAttribute('dir', direction);
+            localStorage.setItem('direction', direction);
+        }
+        if (desktopRtlToggleBtn) desktopRtlToggleBtn.addEventListener('click', toggleRTL);
+        if (mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+
+        // --- DROPDOWNS & MENU ---
+        function toggleDesktopDropdown(id) {
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if(d.id !== id) d.classList.remove('active');
+            });
+            document.getElementById(id).classList.toggle('active');
+        }
+        
+        function toggleMobileDropdown(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+        }
+        if(closeMobileMenu) {
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        }
+
+        // Active Link Highlighting
+        const currentPath = window.location.pathname.split('/').pop() || 'about.html';
+        
+        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+            if (link.getAttribute('href') === 'about.html' || currentPath === 'about.html') {
+                if (link.getAttribute('href') === 'about.html') {
+                    link.classList.add('active');
+                    const parent = link.closest('.dropdown');
+                    if (parent) parent.querySelector('.nav-link')?.classList.add('active');
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // --- SMOOTH SCROLL & OFFSET ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    mobileMenu.classList.remove('active'); 
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, 
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- SCROLL TOP BUTTON ---
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('hidden', window.scrollY <= 300);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        window.addEventListener('resize', () => {
+            if(window.innerWidth >= 1280) mobileMenu.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

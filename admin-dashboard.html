@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | AimForge</title>
+    <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
+    
+    <meta name="description" content="AimForge Admin Dashboard - Manage VODs, users, and platform analytics.">
+
+    <script src="tailwind.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0B1D2A',
+                        secondary: '#7A1E2C',
+                        accent: '#7A1E2C', 
+                        // Dark Theme Colors
+                        'dark-base': '#050E14',
+                        'dark-surface': '#0B1D2A',
+                        'dark-text': '#E5E7EB',
+                        // Light Theme Colors
+                        'light-base': '#FFFFFF',
+                        'light-surface': '#F3F4F6',
+                        'light-text': '#1F2937',
+                        'light-border': '#E5E7EB',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.4s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer components {
+            .sidebar-link {
+                @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-300 text-light-text/70 dark:text-dark-text/70 hover:bg-light-base dark:hover:bg-dark-base/80 hover:text-accent dark:hover:text-accent border-l-4 border-transparent cursor-pointer;
+            }
+            .sidebar-link.active {
+                @apply bg-light-surface dark:bg-dark-base shadow-sm text-accent border-l-4 border-accent;
+            }
+            .stat-card {
+                @apply bg-light-surface dark:bg-dark-surface p-6 rounded-2xl shadow-lg border border-light-border dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl border-t-4 border-t-accent;
+            }
+            .action-btn {
+                @apply bg-accent hover:bg-accent/90 text-white dark:text-white py-2 px-6 rounded-lg font-bold text-xs transition-all duration-300 shadow-[0_0_15px_rgba(122,30,44,0.4)] transform hover:-translate-y-0.5 inline-flex items-center justify-center;
+            }
+            .card-section {
+                @apply bg-light-surface dark:bg-dark-surface rounded-2xl shadow-lg border border-light-border dark:border-white/5 p-6;
+            }
+            .section-header {
+                @apply flex flex-col items-center justify-center text-center mb-10 w-full border-b border-light-border dark:border-white/10 pb-6;
+            }
+            .section-subheading {
+                @apply text-accent font-bold tracking-widest uppercase mb-2 block text-sm w-full text-center;
+            }
+            .section-title {
+                @apply text-2xl md:text-4xl font-black text-light-text dark:text-white tracking-tight;
+            }
+        }
+    </style>
+    
+    <style>
+        /* BASE STYLES */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #7A1E2C; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-sans flex flex-col h-screen bg-light-base dark:bg-dark-base text-light-text dark:text-dark-text transition-colors duration-300">
+
+    <nav class="bg-primary dark:bg-[#050E14] shadow-md flex-shrink-0 relative z-50 h-20 border-b border-white/10 transition-colors duration-300">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 h-full flex justify-between items-center">
+            
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button id="mobileMenuBtn" class="md:hidden text-white hover:text-accent transition-colors text-xl font-bold leading-none border-0 bg-transparent cursor-pointer">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3 no-underline transition-transform duration-300 hover:scale-105 group">
+                    <div class="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-black rounded-lg flex items-center justify-center shrink-0 shadow-sm border-2 border-accent overflow-hidden transition-colors">
+                        <i class="fas fa-crosshairs text-white text-lg sm:text-xl md:text-2xl transform group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="text-lg sm:text-xl md:text-2xl font-black text-white leading-none tracking-tight whitespace-nowrap">Aim<span class="text-accent">Forge</span></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3 md:gap-5">
+                <div class="flex items-center gap-2 lg:gap-3 shrink-0 ltr:mr-2 rtl:ml-2 border-r border-white/20 ltr:pr-2 sm:ltr:pr-4 rtl:pl-2 sm:rtl:pl-4">
+                    <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="theme-toggle-btn" title="Toggle Dark Mode">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="rtl-toggle-btn" title="Toggle RTL">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-3 cursor-pointer group">
+                    <div class="ltr:text-right rtl:text-left hidden lg:block">
+                        <p class="text-xs font-bold text-white leading-tight">System Admin</p>
+                        <p class="text-[10px] text-accent font-bold tracking-wider uppercase">Master Access</p>
+                    </div>
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent text-white flex items-center justify-center font-black text-xs sm:text-sm md:text-lg border-2 border-transparent transition-colors shadow-[0_0_10px_rgba(122,30,44,0.5)]">
+                        <i class="fas fa-user-shield text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden relative">
+        
+        <aside id="sidebar" class="w-64 bg-light-surface dark:bg-dark-surface border-r border-light-border dark:border-white/10 flex-shrink-0 flex flex-col transition-transform duration-300 absolute md:relative z-40 h-full ltr:-translate-x-full ltr:md:translate-x-0 rtl:translate-x-full rtl:md:translate-x-0 shadow-2xl md:shadow-none">
+            <div class="p-5 flex-1 overflow-y-auto space-y-1">
+                <p class="text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider mb-3 ltr:ml-4 rtl:mr-4">Control Panel</p>
+                
+                <a class="sidebar-link active" onclick="switchTab(event, 'all')">
+                    <i class="fas fa-chart-line w-5 text-center"></i> Overview
+                </a>
+                <a class="sidebar-link" onclick="switchTab(event, 'section-vod-queue')">
+                    <i class="fas fa-layer-group w-5 text-center"></i> VOD Queue
+                    <span class="ml-auto bg-accent text-white text-[10px] px-2 py-0.5 rounded-full font-bold">14</span>
+                </a>
+                <a class="sidebar-link" onclick="switchTab(event, 'section-users')">
+                    <i class="fas fa-users w-5 text-center"></i> Users
+                </a>
+                
+                <div class="my-4 border-t border-light-border dark:border-white/10"></div>
+                <p class="text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider mb-3 ltr:ml-4 rtl:mr-4">Financials</p>
+                
+                <a class="sidebar-link" onclick="switchTab(event, 'section-revenue')">
+                    <i class="fas fa-wallet w-5 text-center"></i> Revenue
+                </a>
+                
+                <div class="my-4 border-t border-light-border dark:border-white/10"></div>
+                <p class="text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider mb-3 ltr:ml-4 rtl:mr-4">System</p>
+                
+                <a class="sidebar-link" onclick="switchTab(event, 'section-settings')">
+                    <i class="fas fa-server w-5 text-center"></i> Platform Settings
+                </a>
+                
+                <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all duration-300 text-red-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 font-bold mt-2 border-none cursor-pointer">
+                    <i class="fas fa-sign-out-alt w-5 text-center ltr:rotate-0 rtl:rotate-180"></i>
+                    Logout
+                </a>
+            </div>
+
+            <div class="p-5 m-4 bg-light-base dark:bg-dark-base rounded-xl border border-light-border dark:border-white/5 relative overflow-hidden group shadow-inner text-center">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-green-500/20 rounded-full blur-xl transition-all"></div>
+                <i class="fas fa-check-circle text-green-500 text-2xl mb-2"></i>
+                <h4 class="text-light-text dark:text-white text-sm font-bold mb-1">System Operational</h4>
+                <p class="text-[10px] text-light-text/70 dark:text-dark-text/70">All servers running smoothly.</p>
+            </div>
+        </aside>
+
+        <div id="sidebarOverlay" class="fixed inset-0 bg-dark-base/80 backdrop-blur-sm z-30 hidden md:hidden"></div>
+
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 relative">
+            <div class="max-w-6xl mx-auto pb-12 space-y-12">
+                
+                <div id="section-admin-stats" class="page-section block animate-fade-in-up space-y-8">
+                    <div class="section-header">
+                        <span class="section-subheading">Admin Dashboard</span>
+                        <h1 class="section-title">Platform Overview</h1>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+                        <p class="text-light-text/80 dark:text-dark-text/80 font-medium text-center sm:text-left">Here is what is happening today, <span class="font-bold text-white">Admin</span>.</p>
+                        <button class="action-btn text-center">
+                            Generate Report <i class="fas fa-download ml-2"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="stat-card">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="text-blue-500 text-xs font-black bg-blue-500/10 px-3 py-1 rounded border border-blue-500/20"><i class="fas fa-users"></i></div>
+                                <span class="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 text-[10px] font-bold px-2 py-1 rounded-full">+12 Today</span>
+                            </div>
+                            <h3 class="text-light-text/60 dark:text-dark-text/60 text-xs font-bold uppercase tracking-wider mb-1">Total Active Users</h3>
+                            <p class="text-3xl font-black text-light-text dark:text-white">4,289</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="text-accent text-xs font-black bg-accent/10 px-3 py-1 rounded border border-accent/20"><i class="fas fa-video"></i></div>
+                                <span class="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-[10px] font-bold px-2 py-1 rounded-full">High Volume</span>
+                            </div>
+                            <h3 class="text-light-text/60 dark:text-dark-text/60 text-xs font-bold uppercase tracking-wider mb-1">Pending VODs</h3>
+                            <p class="text-3xl font-black text-light-text dark:text-white">42 <span class="text-sm font-medium text-light-text/50 dark:text-dark-text/50">in queue</span></p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="text-green-500 text-xs font-black bg-green-500/10 px-3 py-1 rounded border border-green-500/20"><i class="fas fa-dollar-sign"></i></div>
+                                <span class="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 text-[10px] font-bold px-2 py-1 rounded-full">+8% MRR</span>
+                            </div>
+                            <h3 class="text-light-text/60 dark:text-dark-text/60 text-xs font-bold uppercase tracking-wider mb-1">Monthly Revenue</h3>
+                            <p class="text-3xl font-black text-light-text dark:text-white">$12,450</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="text-purple-500 text-xs font-black bg-purple-500/10 px-3 py-1 rounded border border-purple-500/20"><i class="fas fa-headset"></i></div>
+                            </div>
+                            <h3 class="text-light-text/60 dark:text-dark-text/60 text-xs font-bold uppercase tracking-wider mb-1">Coaching Sessions</h3>
+                            <p class="text-3xl font-black text-light-text dark:text-white">8 <span class="text-sm font-medium text-light-text/50 dark:text-dark-text/50">live today</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="section-vod-queue" class="page-section block animate-fade-in-up space-y-6">
+                    <div class="section-header">
+                        <span class="section-subheading">Coach Workflow</span>
+                        <h2 class="section-title">Global VOD Queue</h2>
+                    </div>
+                    
+                    <div class="card-section p-0 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-light-base dark:bg-dark-base/80 border-b border-light-border dark:border-white/10">
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">User</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Match ID</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Tier</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Wait Time</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider ltr:text-right rtl:text-left">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-light-border dark:divide-white/5">
+                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/50 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-[10px] font-black">AR</div>
+                                                <span class="text-xs font-bold text-light-text dark:text-white">Alex Rivera</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs font-medium text-light-text/80 dark:text-dark-text/80">#AF-1105 (Lotus)</td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-accent/20 text-accent border border-accent/30">
+                                                Pro
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs font-bold text-red-500">24 Hours</td>
+                                        <td class="px-6 py-4 ltr:text-right rtl:text-left">
+                                            <button class="bg-light-base dark:bg-dark-base text-light-text dark:text-white border border-light-border dark:border-white/20 hover:border-accent hover:text-accent text-xs font-bold py-1 px-3 rounded transition-colors shadow-sm">Assign Coach</button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/50 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-black">JS</div>
+                                                <span class="text-xs font-bold text-light-text dark:text-white">John Smith</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs font-medium text-light-text/80 dark:text-dark-text/80">#AF-1104 (Ascent)</td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-700">
+                                                Basic
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs text-light-text/60 dark:text-dark-text/60">5 Hours</td>
+                                        <td class="px-6 py-4 ltr:text-right rtl:text-left">
+                                            <button class="bg-light-base dark:bg-dark-base text-light-text dark:text-white border border-light-border dark:border-white/20 hover:border-accent hover:text-accent text-xs font-bold py-1 px-3 rounded transition-colors shadow-sm">Assign Coach</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/50 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-[10px] font-black">MK</div>
+                                                <span class="text-xs font-bold text-light-text dark:text-white">Mike K.</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs font-medium text-light-text/80 dark:text-dark-text/80">#AF-1103 (Bind)</td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
+                                                Elite
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-xs text-light-text/60 dark:text-dark-text/60">1 Hour</td>
+                                        <td class="px-6 py-4 ltr:text-right rtl:text-left">
+                                            <button class="bg-light-base dark:bg-dark-base text-light-text dark:text-white border border-light-border dark:border-white/20 hover:border-accent hover:text-accent text-xs font-bold py-1 px-3 rounded transition-colors shadow-sm">Assign Coach</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="section-users" class="page-section block animate-fade-in-up space-y-6">
+                    <div class="section-header">
+                        <span class="section-subheading">Directory</span>
+                        <h2 class="section-title">User Management</h2>
+                    </div>
+                    
+                    <div class="card-section p-0 overflow-hidden">
+                        <div class="p-6 border-b border-light-border dark:border-white/10 flex justify-between items-center bg-light-surface dark:bg-dark-base/30">
+                            <div class="relative w-full max-w-sm">
+                                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-light-text/50 dark:text-dark-text/50 text-xs"></i>
+                                <input type="text" placeholder="Search by name, email, or riot ID..." class="w-full bg-light-base dark:bg-dark-surface border border-light-border dark:border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-light-text dark:text-white focus:outline-none focus:border-accent transition-colors">
+                            </div>
+                            <button class="action-btn py-2 px-4 shadow-none"><i class="fas fa-filter mr-2"></i> Filter</button>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-light-base dark:bg-dark-base/50 border-b border-light-border dark:border-white/10">
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Player Info</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Subscription</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-4 text-[10px] font-black text-light-text/50 dark:text-dark-text/50 uppercase tracking-wider ltr:text-right rtl:text-left">Manage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-light-border dark:divide-white/5">
+                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/30 transition-colors">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-lg bg-accent/20 text-accent flex items-center justify-center font-black">AR</div>
+                                                <div>
+                                                    <div class="text-sm font-bold text-light-text dark:text-white">Alex Rivera</div>
+                                                    <div class="text-[10px] text-light-text/60 dark:text-dark-text/60">alex@example.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-xs font-bold text-accent block">Pro Tier</span>
+                                            <span class="text-[10px] text-light-text/50 dark:text-dark-text/50">Renews Nov 1</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-green-500">
+                                                <i class="fas fa-circle text-[8px]"></i> Active
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 ltr:text-right rtl:text-left space-x-2">
+                                            <button class="text-light-text/60 hover:text-blue-500 dark:text-dark-text/60 dark:hover:text-blue-400 transition-colors"><i class="fas fa-edit"></i></button>
+                                            <button class="text-light-text/60 hover:text-red-500 dark:text-dark-text/60 dark:hover:text-red-400 transition-colors"><i class="fas fa-ban"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/30 transition-colors">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-500 flex items-center justify-center font-black">TD</div>
+                                                <div>
+                                                    <div class="text-sm font-bold text-light-text dark:text-white">Tyler Durden</div>
+                                                    <div class="text-[10px] text-light-text/60 dark:text-dark-text/60">tyler@example.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-xs font-bold text-light-text/80 dark:text-dark-text/80 block">Basic Tier</span>
+                                            <span class="text-[10px] text-light-text/50 dark:text-dark-text/50">Free User</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-light-text/60 dark:text-dark-text/60">
+                                                <i class="fas fa-circle text-[8px]"></i> Inactive (30d)
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 ltr:text-right rtl:text-left space-x-2">
+                                            <button class="text-light-text/60 hover:text-blue-500 dark:text-dark-text/60 dark:hover:text-blue-400 transition-colors"><i class="fas fa-edit"></i></button>
+                                            <button class="text-light-text/60 hover:text-red-500 dark:text-dark-text/60 dark:hover:text-red-400 transition-colors"><i class="fas fa-ban"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="section-revenue" class="page-section block animate-fade-in-up space-y-6">
+                    <div class="section-header">
+                        <span class="section-subheading">Financials</span>
+                        <h2 class="section-title">Revenue Overview</h2>
+                    </div>
+                    
+                    <div class="card-section p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-light-base dark:bg-dark-base rounded-full flex items-center justify-center mb-6 border border-light-border dark:border-white/10 shadow-inner">
+                            <i class="fas fa-chart-bar text-4xl sm:text-5xl text-green-500 opacity-80"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-light-text dark:text-white mb-3">Detailed Analytics Coming Soon</h3>
+                        <p class="text-sm text-light-text/70 dark:text-dark-text/70 max-w-md mx-auto font-medium leading-relaxed">The Stripe API integration is currently syncing. Full MRR charts and churn metrics will populate here shortly.</p>
+                        <button class="mt-8 bg-light-base dark:bg-dark-base border border-light-border dark:border-white/20 text-light-text dark:text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-light-surface dark:hover:bg-dark-surface transition-colors">Force Sync Stripe</button>
+                    </div>
+                </div>
+
+                <div id="section-settings" class="page-section block animate-fade-in-up space-y-6">
+                    <div class="section-header">
+                        <span class="section-subheading">Configuration</span>
+                        <h2 class="section-title">Platform Settings</h2>
+                    </div>
+                    <div class="card-section text-center py-16 sm:py-20 flex flex-col items-center justify-center">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-light-base dark:bg-dark-base rounded-full flex items-center justify-center mb-6 border border-light-border dark:border-white/10 shadow-inner group-hover:border-accent transition-colors">
+                            <i class="fas fa-server text-4xl sm:text-5xl text-accent opacity-80"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-light-text dark:text-white mb-3">System Control Hub</h3>
+                        <p class="text-sm text-light-text/70 dark:text-dark-text/70 max-w-md mx-auto font-medium leading-relaxed">Manage API keys, toggle platform maintenance mode, update terms of service, and manage admin roles here.</p>
+                        <button class="mt-8 action-btn">Enter Secure Settings</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- 1. THEME TOGGLE LOGIC ---
+        const htmlElement = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Force initial state
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            if (themeIcon) themeIcon.className = 'fas fa-sun';
+        } else {
+            htmlElement.classList.remove('dark');
+            if (themeIcon) themeIcon.className = 'fas fa-moon';
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                htmlElement.classList.add('dark');
+                if (themeIcon) themeIcon.className = 'fas fa-sun';
+            } else {
+                htmlElement.classList.remove('dark');
+                if (themeIcon) themeIcon.className = 'fas fa-moon';
+            }
+        }
+        if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // --- 2. RTL TOGGLE LOGIC ---
+        const rtlToggleBtn = document.getElementById('rtl-toggle-btn');
+        const currentDir = localStorage.getItem('direction') || 'ltr';
+        htmlElement.setAttribute('dir', currentDir);
+        
+        function toggleRTL() {
+            const direction = htmlElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+            htmlElement.setAttribute('dir', direction);
+            localStorage.setItem('direction', direction);
+        }
+        if (rtlToggleBtn) rtlToggleBtn.addEventListener('click', toggleRTL);
+
+        // --- 3. FILTER / TAB SWITCHING LOGIC ---
+        function switchTab(event, targetId) {
+            if(event) event.preventDefault();
+            const allSections = document.querySelectorAll('.page-section');
+
+            if (targetId === 'all') {
+                // Show all sections when Overview is selected
+                allSections.forEach(section => {
+                    section.classList.remove('hidden');
+                    section.classList.add('block', 'animate-fade-in-up');
+                });
+            } else {
+                // Hide all sections, then show only the target section
+                allSections.forEach(section => {
+                    section.classList.remove('block', 'animate-fade-in-up');
+                    section.classList.add('hidden');
+                    void section.offsetWidth; 
+                });
+
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                    targetSection.classList.add('block', 'animate-fade-in-up');
+                }
+            }
+
+            // Update Active link in Sidebar
+            if (event && event.currentTarget.classList.contains('sidebar-link')) {
+                document.querySelectorAll('.sidebar-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+            }
+
+            // Close mobile sidebar on click
+            if (window.innerWidth < 768) {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarOverlay = document.getElementById('sidebarOverlay');
+                if (htmlElement.getAttribute('dir') === 'rtl') {
+                    sidebar.classList.add('rtl:translate-x-full');
+                } else {
+                    sidebar.classList.add('ltr:-translate-x-full');
+                }
+                sidebarOverlay.classList.add('hidden');
+            }
+        }
+
+        // --- 4. MOBILE SIDEBAR LOGIC ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            const isRTL = htmlElement.getAttribute('dir') === 'rtl';
+            const closedClass = isRTL ? 'rtl:translate-x-full' : 'ltr:-translate-x-full';
+            
+            const isClosed = sidebar.classList.contains(closedClass);
+            
+            if (isClosed) {
+                sidebar.classList.remove(closedClass);
+                sidebarOverlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add(closedClass);
+                sidebarOverlay.classList.add('hidden');
+            }
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+</html>
