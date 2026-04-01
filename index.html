@@ -27,12 +27,12 @@
                         'card-dark': '#122230'// Dark Blue Card
                     },
                     animation: {
-                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                        'fadeInUp': 'fadeInUp 0.8s ease-out forwards',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         fadeInUp: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
                             'to': { opacity: '1', transform: 'translateY(0)' }
                         }
                     }
@@ -157,7 +157,7 @@
             transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
             text-decoration: none;
         }
-        /* Adjusted hover background color to match Dark Red (rgba(122, 30, 44, 0.1)) */
+        /* Adjusted hover background color to match Dark Red */
         .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
         .dropdown-arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
@@ -188,16 +188,24 @@
 
         /* Form Controls */
         .glass-input {
-            background-color: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background-color: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
             color: white;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            background-color: rgba(255,255,255,0.15);
         }
         .glass-input::placeholder { color: rgba(255,255,255,0.5); }
-        .glass-input option { color: black; }
 
         /* Progress Bar Custom */
         .progress-bar-fill {
             transition: width 1.5s ease-in-out;
+        }
+
+        /* Animations for Hero Initial Opacity */
+        .animate-fadeInUp {
+            opacity: 0;
         }
     </style>
 </head>
@@ -340,83 +348,39 @@
 
         <main class="w-full flex-grow">
             
-            <section class="min-h-[100dvh] w-full flex relative overflow-hidden bg-primary pt-[70px]">
-                <div class="absolute inset-0 z-0"> 
-                    <img src="Images/hero1.jpg" alt="E-Sports Setup" class="w-full h-full object-cover object-center">
-                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B1D2A]/95 via-[#0B1D2A]/85 to-[#0B1D2A]/60"></div>
-                </div>
-                
-                <div class="container mx-auto px-4 z-10 flex flex-col lg:flex-row items-center justify-between w-full h-full gap-6 lg:gap-10 py-12">
-                    
-                    <div class="w-full lg:w-1/2 text-center lg:text-left animate-fadeInUp">
-                        <div class="inline-block bg-secondary text-white px-4 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-4 sm:mb-6 shadow-lg">
-                            <i class="fas fa-trophy mr-2"></i> Join the Elite
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
-                            Become a <br> Competitive <span class="text-secondary">Gamer</span>
-                        </h1>
-                        <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed font-medium mb-6 sm:mb-10 border-l-0 lg:border-l-4 border-secondary pl-0 lg:pl-6 mx-auto lg:mx-0">
-                            Dominate the leaderboard with pro-level coaching. Upload your gameplay, track skill metrics, and access personalized training plans tailored just for you.
-                        </p>
-                    </div>
-                    
-                    <div class="w-full lg:w-[450px] animate-fadeInUp mx-auto lg:mx-0" style="animation-delay: 0.2s;">
-                        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-6 sm:p-8 rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] relative overflow-hidden">
-                            <div class="absolute -top-20 -right-20 w-40 h-40 bg-secondary rounded-full blur-[80px] opacity-40 pointer-events-none"></div>
-                            
-                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 relative z-10 text-center">Start Your Training</h3>
-                            
-                            <form class="space-y-4 sm:space-y-5 relative z-10">
-                                <div>
-                                    <label class="block text-[10px] sm:text-xs font-bold text-gray-300 mb-1 sm:mb-2 uppercase tracking-wide">Select Game</label>
-                                    <div class="relative">
-                                        <i class="fas fa-gamepad absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                        <select class="w-full glass-input rounded-xl py-2.5 sm:py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-secondary transition-all cursor-pointer appearance-none text-sm">
-                                            <option value="" disabled selected>Choose your main game</option>
-                                            <option value="valorant">Valorant</option>
-                                            <option value="csgo">Counter-Strike 2</option>
-                                            <option value="apex">Apex Legends</option>
-                                            <option value="league">League of Legends</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-[10px] sm:text-xs font-bold text-gray-300 mb-1 sm:mb-2 uppercase tracking-wide">Current Skill Level</label>
-                                    <div class="relative">
-                                        <i class="fas fa-medal absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                        <select class="w-full glass-input rounded-xl py-2.5 sm:py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-secondary transition-all cursor-pointer appearance-none text-sm">
-                                            <option value="" disabled selected>Select Current Rank/Level</option>
-                                            <option value="beginner">Beginner (Bronze/Silver)</option>
-                                            <option value="intermediate">Intermediate (Gold/Plat)</option>
-                                            <option value="advanced">Advanced (Diamond+)</option>
-                                        </select>
-                                    </div>
-                                </div>
+<section class="min-h-[100dvh] w-full flex items-center justify-center relative overflow-hidden bg-[#040D14] pt-[70px]">
+    
+    <div class="absolute inset-0 z-0"> 
+        <img src="Images/hero1.jpg" alt="E-Sports Setup" class="w-full h-full object-cover object-center opacity-30 mix-blend-overlay">
+        
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary rounded-full blur-[150px] opacity-20 pointer-events-none"></div>
+        
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#040D14]/80 to-[#040D14]"></div>
+    </div>
 
-                                <div>
-                                    <label class="block text-[10px] sm:text-xs font-bold text-gray-300 mb-1 sm:mb-2 uppercase tracking-wide">Primary Goal</label>
-                                    <div class="relative">
-                                        <i class="fas fa-bullseye absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                        <select class="w-full glass-input rounded-xl py-2.5 sm:py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-secondary transition-all cursor-pointer appearance-none text-sm">
-                                            <option value="" disabled selected>What do you want to improve?</option>
-                                            <option value="aim">Mechanics & Aim</option>
-                                            <option value="gamesense">Game Sense & Strategy</option>
-                                            <option value="vod">VOD Review</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <button type="button" class="w-full bg-secondary text-white py-3 sm:py-4 rounded-xl font-black text-base sm:text-lg transition-all hover:bg-white hover:text-primary shadow-lg mt-2 sm:mt-4 flex justify-center items-center gap-2">
-                                    Unlock Your Potential <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-
+    <div class="container mx-auto px-4 z-20 flex flex-col items-center justify-center w-full relative py-12 lg:py-0">
+        
+        <div class="animate-fadeInUp inline-flex items-center gap-3 bg-white/5 border border-white/10 backdrop-blur-md px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-widest uppercase text-gray-300 mb-8 shadow-lg">
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+            </span>
+            Next-Gen E-Sports Academy
+        </div>
+        
+        <h1 class="animate-fadeInUp text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white text-center mb-6 leading-[1.1] drop-shadow-2xl max-w-5xl" style="animation-delay: 0.1s;">
+            Forge Your <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-300 to-secondary">Competitive Legacy</span>
+        </h1>
+        
+        <p class="animate-fadeInUp text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl text-center leading-relaxed font-medium" style="animation-delay: 0.2s;">
+            Stop grinding in circles. Access frame-by-frame VOD analysis, pro-level routines, and instant stat tracking to obliterate the competition.
+        </p>
+        
+    </div>
+</section>
             <section id="tracker" class="py-20 md:py-32 bg-theme-alt border-b border-theme relative z-20">
                 <div class="container mx-auto max-w-7xl px-4">
                     <div class="text-center mb-12">
