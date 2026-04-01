@@ -126,23 +126,13 @@
 
         <div class="w-full max-w-[400px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-7 relative z-10 flex flex-col min-h-[520px]">
             
-            <div class="flex justify-between items-center mb-4 shrink-0">
+            <div class="flex justify-center items-center mb-4 shrink-0">
                 <a href="index.html" class="flex items-center gap-2 no-underline hover:opacity-80 transition-opacity">
                     <div class="relative w-8 h-8 bg-black rounded-xl flex items-center justify-center shrink-0 border-2 border-secondary shadow-md">
                         <i class="fas fa-crosshairs text-white text-sm"></i>
                     </div>
                     <div class="text-lg font-black tracking-tight text-[var(--text-heading)] leading-none">Aim<span class="text-secondary">Forge</span></div>
                 </a>
-                
-                <div class="flex items-center gap-2 shrink-0">
-                    <button id="rtlToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle RTL">
-                        <i class="fas fa-right-left text-xs"></i>
-                    </button>
-                    <button id="themeToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle Dark Mode">
-                        <i class="fas fa-sun text-xs hidden dark:inline-block"></i>
-                        <i class="fas fa-circle-half-stroke text-xs dark:hidden"></i>
-                    </button>
-                </div>
             </div>
 
             <div class="mb-5 text-center shrink-0">
@@ -274,6 +264,15 @@
                 </div>
             </div>
 
+            <div class="flex items-center justify-center gap-4 mt-auto pt-6 shrink-0 w-full">
+                <button id="themeToggle" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button id="rtlToggle" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle RTL">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+            </div>
+
         </div>
     </section>
 
@@ -305,21 +304,15 @@
     </div>
 
     <script>
-        // 1. Theme Logic
+        // 1. Theme Logic (Updated for Pricing icons)
         const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
         const htmlElement = document.documentElement;
 
         function updateThemeIcon() {
             const isDark = htmlElement.classList.contains('dark');
-            const sunIcon = themeToggle.querySelector('.fa-sun');
-            const moonIcon = themeToggle.querySelector('.fa-circle-half-stroke');
-            
-            if (isDark) {
-                if(sunIcon) sunIcon.classList.remove('hidden');
-                if(moonIcon) moonIcon.classList.add('hidden');
-            } else {
-                if(sunIcon) sunIcon.classList.add('hidden');
-                if(moonIcon) moonIcon.classList.remove('hidden');
+            if (themeIcon) {
+                themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             }
         }
 

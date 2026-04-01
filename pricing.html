@@ -440,108 +440,135 @@
             </section>
 
             <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
-                <div class="container mx-auto px-4 max-w-5xl">
+                <div class="container mx-auto px-4 max-w-3xl">
                     <div class="text-center mb-16">
                         <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Membership FAQ</h2>
                         <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">Clear & Transparent Billing</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-card-theme p-8 rounded-3xl border border-theme shadow-sm">
-                            <h3 class="text-lg font-bold text-heading-theme mb-3">Can I cancel at any time?</h3>
-                            <p class="text-body-theme text-sm font-medium">Yes, entirely risk-free. You can cancel your recurring subscription with one click inside your dashboard. You will retain access until the end of your billing cycle.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-card-theme border border-theme rounded-2xl shadow-sm transition-all duration-300">
+                            <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer group" onclick="toggleFaq(this)">
+                                <h3 class="text-lg font-bold text-heading-theme pr-4 group-hover:text-secondary transition-colors">Can I cancel at any time?</h3>
+                                <i class="fas fa-plus text-secondary transition-transform duration-300 text-xl shrink-0"></i>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-theme-alt/50 rounded-b-2xl">
+                                <p class="px-6 pb-6 pt-2 text-body-theme text-sm font-medium">
+                                    Yes, entirely risk-free. You can cancel your recurring subscription with one click inside your dashboard. You will retain access until the end of your billing cycle.
+                                </p>
+                            </div>
                         </div>
-                        <div class="bg-card-theme p-8 rounded-3xl border border-theme shadow-sm">
-                            <h3 class="text-lg font-bold text-heading-theme mb-3">Can I switch my primary game?</h3>
-                            <p class="text-body-theme text-sm font-medium">Absolutely. Your AimForge subscription gives you full access to all coaches and VODs across all supported games (Valorant, CS2, Apex, etc.).</p>
+
+                        <div class="bg-card-theme border border-theme rounded-2xl shadow-sm transition-all duration-300">
+                            <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer group" onclick="toggleFaq(this)">
+                                <h3 class="text-lg font-bold text-heading-theme pr-4 group-hover:text-secondary transition-colors">Can I switch my primary game?</h3>
+                                <i class="fas fa-plus text-secondary transition-transform duration-300 text-xl shrink-0"></i>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-theme-alt/50 rounded-b-2xl">
+                                <p class="px-6 pb-6 pt-2 text-body-theme text-sm font-medium">
+                                    Absolutely. Your AimForge subscription gives you full access to all coaches and VODs across all supported games (Valorant, CS2, Apex, etc.).
+                                </p>
+                            </div>
                         </div>
-                        <div class="bg-card-theme p-8 rounded-3xl border border-theme shadow-sm">
-                            <h3 class="text-lg font-bold text-heading-theme mb-3">What happens if I miss a live session?</h3>
-                            <p class="text-body-theme text-sm font-medium">We require 24 hours notice for rescheduling. Unused live coaching hours rollover to the next month as long as your subscription remains active.</p>
+
+                        <div class="bg-card-theme border border-theme rounded-2xl shadow-sm transition-all duration-300">
+                            <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer group" onclick="toggleFaq(this)">
+                                <h3 class="text-lg font-bold text-heading-theme pr-4 group-hover:text-secondary transition-colors">What happens if I miss a live session?</h3>
+                                <i class="fas fa-plus text-secondary transition-transform duration-300 text-xl shrink-0"></i>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-theme-alt/50 rounded-b-2xl">
+                                <p class="px-6 pb-6 pt-2 text-body-theme text-sm font-medium">
+                                    We require 24 hours notice for rescheduling. Unused live coaching hours rollover to the next month as long as your subscription remains active.
+                                </p>
+                            </div>
                         </div>
-                        <div class="bg-card-theme p-8 rounded-3xl border border-theme shadow-sm">
-                            <h3 class="text-lg font-bold text-heading-theme mb-3">Is there a contract or commitment?</h3>
-                            <p class="text-body-theme text-sm font-medium">No hidden fees, no lock-in contracts. You only pay for the month (or year, if you selected the discounted annual plan) you are actively using.</p>
+
+                        <div class="bg-card-theme border border-theme rounded-2xl shadow-sm transition-all duration-300">
+                            <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer group" onclick="toggleFaq(this)">
+                                <h3 class="text-lg font-bold text-heading-theme pr-4 group-hover:text-secondary transition-colors">Is there a contract or commitment?</h3>
+                                <i class="fas fa-plus text-secondary transition-transform duration-300 text-xl shrink-0"></i>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-theme-alt/50 rounded-b-2xl">
+                                <p class="px-6 pb-6 pt-2 text-body-theme text-sm font-medium">
+                                    No hidden fees, no lock-in contracts. You only pay for the month (or year, if you selected the discounted annual plan) you are actively using.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-     <section class="py-24 bg-theme-alt relative overflow-hidden border-b border-theme z-20">
-    <div class="container mx-auto px-4 flex flex-col items-center max-w-7xl">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Rosters & Organizations</h2>
-            <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">B2B Solutions</p>
-        </div>
-        
-        <div class="grid lg:grid-cols-2 gap-16 items-center w-full mt-6">
-            
-            <!-- LEFT CONTENT -->
-            <div class="relative z-10 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-heading-theme leading-tight">
-                    Training an <br> Entire Team?
-                </h2>
-
-                <p class="text-lg opacity-90 mb-10 text-body-theme font-medium max-w-lg text-center lg:text-left">
-                    Elevate your org. We provide dedicated coaching staff, server analytics, and custom strat books for collegiate and amateur rosters.
-                </p>
-
-                <div class="space-y-8 mb-12 w-full text-left">
+            <section class="py-24 bg-theme-alt relative overflow-hidden border-b border-theme z-20">
+                <div class="container mx-auto px-4 flex flex-col items-center max-w-7xl">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Rosters & Organizations</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">B2B Solutions</p>
+                    </div>
                     
-                    <div class="flex gap-5 items-start">
-                        <div class="w-12 h-12 rounded-full bg-theme-main border border-secondary text-secondary flex items-center justify-center shrink-0 font-black text-xl shadow-sm">1</div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-1 text-heading-theme">Collegiate Program</h4>
-                            <p class="opacity-80 text-sm text-body-theme font-medium">
-                                Ideal for University clubs. Includes bulk AimForge Pro licenses and weekly team scrim reviews.
+                    <div class="grid lg:grid-cols-2 gap-16 items-center w-full mt-6">
+                        
+                        <div class="relative z-10 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
+                            <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-heading-theme leading-tight">
+                                Training an <br> Entire Team?
+                            </h2>
+
+                            <p class="text-lg opacity-90 mb-10 text-body-theme font-medium max-w-lg text-center lg:text-left">
+                                Elevate your org. We provide dedicated coaching staff, server analytics, and custom strat books for collegiate and amateur rosters.
                             </p>
-                            <div class="text-secondary font-black mt-2 text-lg">Starts @ $300/month</div>
+
+                            <div class="space-y-8 mb-12 w-full text-left">
+                                
+                                <div class="flex gap-5 items-start">
+                                    <div class="w-12 h-12 rounded-full bg-theme-main border border-secondary text-secondary flex items-center justify-center shrink-0 font-black text-xl shadow-sm">1</div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-1 text-heading-theme">Collegiate Program</h4>
+                                        <p class="opacity-80 text-sm text-body-theme font-medium">
+                                            Ideal for University clubs. Includes bulk AimForge Pro licenses and weekly team scrim reviews.
+                                        </p>
+                                        <div class="text-secondary font-black mt-2 text-lg">Starts @ $300/month</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-5 items-start">
+                                    <div class="w-12 h-12 rounded-full bg-theme-main border border-secondary text-secondary flex items-center justify-center shrink-0 font-black text-xl shadow-sm">2</div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-1 text-heading-theme">Tier-2/3 Organizations</h4>
+                                        <p class="opacity-80 text-sm text-body-theme font-medium">
+                                            Dedicated analyst support, server setups, opponent anti-stratting, and live IGL coaching.
+                                        </p>
+                                        <div class="text-secondary font-black mt-2 text-lg">Custom Quote</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <a href="contact.html" class="inline-flex items-center gap-3 bg-secondary text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-white hover:text-primary transition-colors shadow-[0_0_15px_rgba(122,30,44,0.4)] hover:-translate-y-1 no-underline">
+                                Request Team Quote <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="relative h-[450px] lg:h-[600px] rounded-3xl overflow-hidden border border-theme shadow-md order-1 lg:order-2 group w-full">
+                            
+                            <img src="Images/hero2.jpg" 
+                                 alt="Team Training" 
+                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+
+                            <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+                            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 z-20">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="fas fa-shield-alt text-secondary text-2xl"></i>
+                                    <p class="font-black text-xl text-white tracking-wide">University of Esports</p>
+                                </div>
+                                <p class="text-sm text-gray-300 pl-8 font-medium">
+                                    Varsity Valorant Roster • Qualified for Nationals
+                                </p>
+                            </div>
+
                         </div>
                     </div>
-
-                    <div class="flex gap-5 items-start">
-                        <div class="w-12 h-12 rounded-full bg-theme-main border border-secondary text-secondary flex items-center justify-center shrink-0 font-black text-xl shadow-sm">2</div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-1 text-heading-theme">Tier-2/3 Organizations</h4>
-                            <p class="opacity-80 text-sm text-body-theme font-medium">
-                                Dedicated analyst support, server setups, opponent anti-stratting, and live IGL coaching.
-                            </p>
-                            <div class="text-secondary font-black mt-2 text-lg">Custom Quote</div>
-                        </div>
-                    </div>
-
                 </div>
-
-                <a href="contact.html" class="inline-flex items-center gap-3 bg-secondary text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-white hover:text-primary transition-colors shadow-[0_0_15px_rgba(122,30,44,0.4)] hover:-translate-y-1 no-underline">
-                    Request Team Quote <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <!-- RIGHT IMAGE -->
-            <div class="relative h-[450px] lg:h-[600px] rounded-3xl overflow-hidden border border-theme shadow-md order-1 lg:order-2 group w-full">
-                
-                <!-- IMAGE -->
-                <img src="Images/hero2.jpg" 
-                     alt="Team Training" 
-                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-
-                <!-- DARK OVERLAY -->
-                <div class="absolute inset-0 bg-black/40 z-10"></div>
-
-                <!-- BOTTOM CONTENT -->
-                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 z-20">
-                    <div class="flex items-center gap-2 mb-2">
-                        <i class="fas fa-shield-alt text-secondary text-2xl"></i>
-                        <p class="font-black text-xl text-white tracking-wide">University of Esports</p>
-                    </div>
-                    <p class="text-sm text-gray-300 pl-8 font-medium">
-                        Varsity Valorant Roster • Qualified for Nationals
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
             <section class="py-20 md:py-24 bg-theme-main border-b border-theme relative z-20">
                 <div class="container mx-auto px-4 text-center max-w-3xl flex flex-col items-center">
@@ -772,6 +799,29 @@
                     });
                 }
             });
+        }
+
+        // --- FAQ ACCORDION LOGIC ---
+        function toggleFaq(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            
+            // Close other accordions
+            document.querySelectorAll('.faq-content').forEach(el => {
+                if (el !== content) {
+                    el.style.maxHeight = null;
+                    el.previousElementSibling.querySelector('i').classList.remove('rotate-45');
+                }
+            });
+
+            // Toggle current accordion
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.classList.remove('rotate-45');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.add('rotate-45');
+            }
         }
     </script>
 </body>
