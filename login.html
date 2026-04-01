@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" dir="ltr" class="light">
+<html lang="en" data-theme="dark" dir="ltr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,13 +21,13 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#1F2937',   // Charcoal 
-                        secondary: '#DC2626', // Red (Accent/CTA)
-                        base: '#000000',      // Black
-                        cream: '#FFFFFF',     // White
-                        warmgray: '#9CA3AF',  // Gray for supportive text
-                        charcoal: '#111827',  // Deep Charcoal
-                        'card-dark': '#1F2937'// Card Dark
+                        primary: '#0B1D2A',   // Dark Blue
+                        secondary: '#7A1E2C', // Dark Red 
+                        base: '#000000',      
+                        cream: '#FFFFFF',     
+                        warmgray: '#9CA3AF',  
+                        charcoal: '#111827',  
+                        'card-dark': '#122230'// Dark Blue Card
                     },
                     animation: {
                         'fadeInUp': 'fadeInUp 0.4s ease-out',
@@ -62,21 +62,28 @@
     
     <style>
         :root {
-            --bg-color: #F3F4F6;
+            --primary-color: #0B1D2A; 
+            --secondary-color: #7A1E2C; 
+            --bg-color: #FFFFFF; 
+            --bg-alt: #F3F4F6; 
             --card-bg: #FFFFFF;    
-            --text-main: #374151;
-            --text-heading: #000000;
+            --text-main: #1F2937; 
+            --text-heading: #000000; 
             --border-color: #E5E7EB;
             --input-border: #D1D5DB;
         }
         
+        /* Dark Blue / Deep Dark Mode matching Pricing Page */
         [data-theme="dark"] {
-            --bg-color: #000000;
-            --card-bg: #1F2937;
-            --text-main: #E5E7EB;
-            --text-heading: #FFFFFF;
-            --border-color: #374151;
-            --input-border: #4B5563;
+            --primary-color: #0B1D2A;   
+            --secondary-color: #7A1E2C; 
+            --bg-color: #050E14;        /* Very Dark Navy Background */
+            --bg-alt: #08151E;          
+            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
+            --text-main: #E5E7EB;       /* Light Grey Text */
+            --text-heading: #FFFFFF;    /* Pure White Headings */
+            --border-color: #172F43;    /* Dark border */
+            --input-border: #172F43;
         }
 
         html, body {
@@ -94,7 +101,8 @@
             color: var(--text-main);
         }
         .form-input::placeholder {
-            color: #9CA3AF;
+            color: var(--warmgray);
+            opacity: 0.6;
         }
 
         .social-btn {
@@ -107,7 +115,7 @@
         }
 
         .card-toggle-btn { 
-            background-color: var(--bg-color); 
+            background-color: var(--bg-alt); 
             color: var(--text-main); 
             border: 1px solid var(--border-color);
         }
@@ -117,12 +125,12 @@
         }
     </style>
 </head>
-<body class="w-full overflow-x-hidden m-0 p-0 antialiased bg-theme-main text-body-theme relative">
+<body class="w-full overflow-x-hidden m-0 p-0 antialiased relative">
 
     <section class="flex flex-col items-center justify-center min-h-screen px-4 py-8 relative overflow-hidden">
         
         <div class="absolute top-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/20 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div class="w-full max-w-[400px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-7 relative z-10 flex flex-col min-h-[520px]">
             
@@ -164,13 +172,13 @@
 
                     <div class="flex items-center justify-between text-xs font-medium pt-1 pb-2">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="w-3.5 h-3.5 text-secondary rounded border-gray-300 focus:ring-secondary bg-transparent">
+                            <input type="checkbox" class="w-3.5 h-3.5 text-secondary rounded border-[var(--border-color)] focus:ring-secondary bg-transparent">
                             <span class="text-[var(--text-main)]">Remember me</span>
                         </label>
                         <a href="#" class="text-secondary hover:underline font-bold transition-colors" onclick="showPasswordReset()">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="w-full bg-secondary text-white hover:bg-primary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border-0 cursor-pointer" id="loginButton">
+                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="loginButton">
                         Login Securely
                     </button>
                 </form>
@@ -244,14 +252,14 @@
 
                     <div class="flex items-start gap-2 pt-1 pb-1">
                         <div class="flex items-center h-4 mt-0.5">
-                            <input id="terms" type="checkbox" required class="w-3.5 h-3.5 text-secondary rounded border-gray-300 focus:ring-secondary bg-transparent cursor-pointer">
+                            <input id="terms" type="checkbox" required class="w-3.5 h-3.5 text-secondary rounded border-[var(--border-color)] focus:ring-secondary bg-transparent cursor-pointer">
                         </div>
                         <label for="terms" class="text-[var(--text-main)] text-[10px] font-medium leading-tight cursor-pointer">
                             I agree to the <a href="#" class="text-secondary font-bold hover:underline">Terms</a> and <a href="#" class="text-secondary font-bold hover:underline">Privacy Policy</a>.
                         </label>
                     </div>
 
-                    <button type="submit" class="w-full bg-secondary text-white hover:bg-primary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border-0 cursor-pointer" id="signupButton">
+                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="signupButton">
                         Create Account
                     </button>
                 </form>
@@ -296,7 +304,7 @@
                     <i class="fas fa-envelope input-icon"></i>
                     <input type="email" placeholder="alex@example.com" class="form-input py-2.5" id="resetEmail">
                 </div>
-                <button onclick="sendResetLink(event)" class="w-full bg-secondary hover:bg-primary text-white py-2.5 rounded-xl font-black transition-all duration-300 text-sm shadow-md cursor-pointer border-0">
+                <button onclick="sendResetLink(event)" class="w-full bg-secondary hover:bg-white hover:text-primary hover:border hover:border-secondary text-white py-2.5 rounded-xl font-black transition-all duration-300 text-sm shadow-md cursor-pointer border border-transparent">
                     Send Reset Link
                 </button>
             </div>
@@ -304,7 +312,7 @@
     </div>
 
     <script>
-        // 1. Theme Logic (Updated for Pricing icons)
+        // 1. Theme Logic
         const themeToggle = document.getElementById("themeToggle");
         const themeIcon = document.getElementById("themeIcon");
         const htmlElement = document.documentElement;
@@ -327,7 +335,7 @@
         if (themeToggle) themeToggle.addEventListener("click", toggleDarkMode);
         
         // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light'; 
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // defaulting to dark to match pricing vibe
         if (savedTheme === 'dark') {
             htmlElement.classList.add("dark");
             htmlElement.setAttribute('data-theme', 'dark');
