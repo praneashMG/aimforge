@@ -21,13 +21,13 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#0B1D2A',   // Dark Blue
-                        secondary: '#7A1E2C', // Dark Red 
+                        primary: '#0B1D2A',   
+                        secondary: '#7A1E2C', 
                         base: '#000000',      
                         cream: '#FFFFFF',     
                         warmgray: '#9CA3AF',  
                         charcoal: '#111827',  
-                        'card-dark': '#122230'// Dark Blue Card
+                        'card-dark': '#122230'
                     },
                     animation: {
                         'fadeInUp': 'fadeInUp 0.4s ease-out',
@@ -46,16 +46,16 @@
     <style type="text/tailwindcss">
         @layer components {
             .form-input {
-                @apply w-full pl-10 pr-10 py-2 border bg-transparent rounded-xl focus:border-secondary focus:ring-1 focus:ring-secondary transition-all outline-none text-sm font-medium;
+                @apply w-full pl-9 pr-9 py-1.5 border bg-transparent rounded-xl focus:border-secondary focus:ring-1 focus:ring-secondary transition-all outline-none text-sm font-medium;
             }
             .social-btn {
                 @apply flex-1 flex items-center justify-center py-2 border rounded-xl transition-colors duration-300 shadow-sm;
             }
             .input-icon {
-                @apply absolute top-1/2 -translate-y-1/2 text-gray-400 left-3.5 text-sm;
+                @apply absolute top-1/2 -translate-y-1/2 text-gray-400 left-3 text-sm;
             }
             .form-label {
-                @apply block text-[var(--text-heading)] font-bold mb-1 text-[10px] md:text-xs uppercase tracking-wider;
+                @apply block text-[var(--text-heading)] font-bold mb-0.5 text-[10px] md:text-xs uppercase tracking-wider;
             }
         }
     </style>
@@ -73,23 +73,21 @@
             --input-border: #D1D5DB;
         }
         
-        /* Dark Blue / Deep Dark Mode matching Pricing Page */
         [data-theme="dark"] {
             --primary-color: #0B1D2A;   
             --secondary-color: #7A1E2C; 
-            --bg-color: #050E14;        /* Very Dark Navy Background */
-            --bg-alt: #08151E;          
-            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
-            --text-main: #E5E7EB;       /* Light Grey Text */
-            --text-heading: #FFFFFF;    /* Pure White Headings */
-            --border-color: #172F43;    /* Dark border */
-            --input-border: #172F43;
+            --bg-color: #000000;        
+            --bg-alt: #111111;          
+            --card-bg: #0A0A0A;         
+            --text-main: #E5E7EB;       
+            --text-heading: #FFFFFF;    
+            --border-color: #1F2937;    
+            --input-border: #374151;
         }
 
         html, body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -125,36 +123,36 @@
         }
     </style>
 </head>
-<body class="w-full overflow-x-hidden m-0 p-0 antialiased relative">
+<body class="w-full h-screen overflow-hidden m-0 p-0 antialiased relative flex flex-col">
 
-    <section class="flex flex-col items-center justify-center min-h-screen px-4 py-8 relative overflow-hidden">
-        
-        <div class="absolute top-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/20 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="w-full max-w-[400px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-7 relative z-10 flex flex-col min-h-[520px]">
-            
-            <div class="flex justify-center items-center mb-4 relative shrink-0">
-                <a href="index.html" class="flex items-center gap-2 no-underline hover:opacity-80 transition-opacity">
-                    <div class="relative w-8 h-8 bg-black rounded-xl flex items-center justify-center shrink-0 border-2 border-secondary shadow-md">
-                        <i class="fas fa-crosshairs text-white text-sm"></i>
-                    </div>
-                    <div class="text-lg font-black tracking-tight text-[var(--text-heading)] leading-none">Aim<span class="text-secondary">Forge</span></div>
-                </a>
-                
-                <div class="absolute right-0 flex items-center gap-2 shrink-0">
-                    <button id="themeToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle Dark Mode">
-                        <i class="fas fa-moon" id="themeIcon"></i>
-                    </button>
-                    <button id="rtlToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle RTL">
-                        <i class="fas fa-exchange-alt text-xs"></i>
-                    </button>
-                </div>
+    <nav class="absolute top-0 left-0 w-full h-16 px-4 md:px-8 flex justify-between items-center bg-[var(--bg-color)]/80 backdrop-blur-md border-b border-[var(--border-color)] z-50">
+        <a href="index.html" class="flex items-center gap-2 no-underline hover:opacity-80 transition-opacity">
+            <div class="relative w-8 h-8 bg-black rounded-xl flex items-center justify-center shrink-0 border-2 border-secondary shadow-md">
+                <i class="fas fa-crosshairs text-white text-sm"></i>
             </div>
+            <div class="text-lg font-black tracking-tight text-[var(--text-heading)] leading-none">Aim<span class="text-secondary">Forge</span></div>
+        </a>
 
-            <div class="mb-5 text-center shrink-0">
-                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-1">Welcome Back</h1>
-                <p class="text-[var(--text-main)] opacity-80 text-xs font-medium">Sign in to manage your VODs</p>
+        <div class="flex items-center gap-2 md:gap-3 shrink-0">
+            <button id="themeToggle" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 card-toggle-btn shadow-sm hover:shadow-md" title="Toggle Dark Mode">
+                <i class="fas fa-moon text-sm" id="themeIcon"></i>
+            </button>
+            <button id="rtlToggle" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 card-toggle-btn shadow-sm hover:shadow-md" title="Toggle RTL">
+                <i class="fas fa-exchange-alt text-sm"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="flex-1 flex flex-col items-center justify-center w-full px-4 pt-16 relative">
+        
+        <div class="absolute top-1/4 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-primary/20 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="w-full max-w-[380px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-6 relative z-10 flex flex-col">
+
+            <div class="mb-4 text-center shrink-0">
+                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-0.5">Welcome Back</h1>
+                <p class="text-[var(--text-main)] opacity-80 text-[11px] font-medium">Sign in to manage your VODs</p>
             </div>
 
             <div id="loginForm" class="flex-1 flex flex-col justify-between">
@@ -173,13 +171,13 @@
                         <div class="relative">
                             <i class="fas fa-lock input-icon"></i>
                             <input type="password" id="loginPassword" placeholder="Enter your password" required class="form-input" autocomplete="current-password">
-                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
+                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
                                 <i class="fas fa-eye text-sm" id="loginEyeIcon"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between text-xs font-medium pt-1 pb-2">
+                    <div class="flex items-center justify-between text-[11px] font-medium pt-1 pb-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" class="w-3.5 h-3.5 text-secondary rounded border-[var(--border-color)] focus:ring-secondary bg-transparent">
                             <span class="text-[var(--text-main)]">Remember me</span>
@@ -187,19 +185,19 @@
                         <a href="#" class="text-secondary hover:underline font-bold transition-colors" onclick="showPasswordReset()">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="loginButton">
+                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="loginButton">
                         Login Securely
                     </button>
                 </form>
 
                 <div class="mt-4 shrink-0">
-                    <div class="relative flex items-center py-2 mb-4">
+                    <div class="relative flex items-center py-1.5 mb-3">
                         <div class="flex-grow border-t border-[var(--border-color)]"></div>
                         <span class="flex-shrink-0 mx-3 text-[var(--text-main)] opacity-60 text-[9px] font-bold uppercase tracking-wider">Or continue with</span>
                         <div class="flex-grow border-t border-[var(--border-color)]"></div>
                     </div>
 
-                    <div class="flex gap-2 w-full mb-4">
+                    <div class="flex gap-2 w-full mb-3">
                         <button class="social-btn cursor-pointer" title="Sign in with Google">
                             <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4" alt="Google">
                         </button>
@@ -211,7 +209,7 @@
                         </button>
                     </div>
 
-                    <p class="text-center text-xs text-[var(--text-main)] font-medium">
+                    <p class="text-center text-xs text-[var(--text-main)] font-medium pt-2 border-t border-[var(--border-color)]">
                         Don't have an account? 
                         <a href="register.html" class="text-secondary font-bold hover:underline ml-1">Create Account</a>
                     </p>
@@ -257,7 +255,7 @@
         function updateThemeIcon() {
             const isDark = htmlElement.classList.contains('dark');
             if (themeIcon) {
-                themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeIcon.className = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
             }
         }
 
@@ -272,7 +270,7 @@
         if (themeToggle) themeToggle.addEventListener("click", toggleDarkMode);
         
         // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'dark'; // defaulting to dark to match pricing vibe
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'dark') {
             htmlElement.classList.add("dark");
             htmlElement.setAttribute('data-theme', 'dark');

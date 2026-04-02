@@ -26,8 +26,7 @@
                         base: '#000000',      
                         cream: '#FFFFFF',     
                         warmgray: '#9CA3AF',  
-                        charcoal: '#111827',  
-                        'card-dark': '#122230'
+                        charcoal: '#111827'
                     },
                     animation: {
                         'fadeInUp': 'fadeInUp 0.4s ease-out',
@@ -46,13 +45,13 @@
     <style type="text/tailwindcss">
         @layer components {
             .form-input {
-                @apply w-full pl-10 pr-10 py-2 border bg-transparent rounded-xl focus:border-secondary focus:ring-1 focus:ring-secondary transition-all outline-none text-sm font-medium;
+                @apply w-full pl-9 pr-9 py-1.5 border bg-transparent rounded-xl focus:border-secondary focus:ring-1 focus:ring-secondary transition-all outline-none text-sm font-medium;
             }
             .input-icon {
-                @apply absolute top-1/2 -translate-y-1/2 text-gray-400 left-3.5 text-sm;
+                @apply absolute top-1/2 -translate-y-1/2 text-gray-400 left-3 text-sm;
             }
             .form-label {
-                @apply block text-[var(--text-heading)] font-bold mb-1 text-[10px] md:text-xs uppercase tracking-wider;
+                @apply block text-[var(--text-heading)] font-bold mb-0.5 text-[10px] md:text-xs uppercase tracking-wider;
             }
         }
     </style>
@@ -73,19 +72,18 @@
         [data-theme="dark"] {
             --primary-color: #0B1D2A;   
             --secondary-color: #7A1E2C; 
-            --bg-color: #050E14;        
-            --bg-alt: #08151E;          
-            --card-bg: #0B1D2A;         
+            --bg-color: #000000;        
+            --bg-alt: #111111;          
+            --card-bg: #0A0A0A;         
             --text-main: #E5E7EB;       
             --text-heading: #FFFFFF;    
-            --border-color: #172F43;    
-            --input-border: #172F43;
+            --border-color: #1F2937;    
+            --input-border: #374151;
         }
 
         html, body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -112,36 +110,36 @@
         }
     </style>
 </head>
-<body class="w-full overflow-x-hidden m-0 p-0 antialiased relative">
+<body class="w-full h-screen overflow-hidden m-0 p-0 antialiased relative flex flex-col">
 
-    <section class="flex flex-col items-center justify-center min-h-screen px-4 py-8 relative overflow-hidden">
-        
-        <div class="absolute top-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/20 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="w-full max-w-[400px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-7 relative z-10 flex flex-col min-h-[520px]">
-            
-            <div class="flex justify-center items-center mb-4 relative shrink-0">
-                <a href="index.html" class="flex items-center gap-2 no-underline hover:opacity-80 transition-opacity">
-                    <div class="relative w-8 h-8 bg-black rounded-xl flex items-center justify-center shrink-0 border-2 border-secondary shadow-md">
-                        <i class="fas fa-crosshairs text-white text-sm"></i>
-                    </div>
-                    <div class="text-lg font-black tracking-tight text-[var(--text-heading)] leading-none">Aim<span class="text-secondary">Forge</span></div>
-                </a>
-                
-                <div class="absolute right-0 flex items-center gap-2 shrink-0">
-                    <button id="themeToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle Dark Mode">
-                        <i class="fas fa-moon" id="themeIcon"></i>
-                    </button>
-                    <button id="rtlToggle" class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 card-toggle-btn" title="Toggle RTL">
-                        <i class="fas fa-exchange-alt text-xs"></i>
-                    </button>
-                </div>
+    <nav class="absolute top-0 left-0 w-full h-16 px-4 md:px-8 flex justify-between items-center bg-[var(--bg-color)]/80 backdrop-blur-md border-b border-[var(--border-color)] z-50">
+        <a href="index.html" class="flex items-center gap-2 no-underline hover:opacity-80 transition-opacity">
+            <div class="relative w-8 h-8 bg-black rounded-xl flex items-center justify-center shrink-0 border-2 border-secondary shadow-md">
+                <i class="fas fa-crosshairs text-white text-sm"></i>
             </div>
+            <div class="text-lg font-black tracking-tight text-[var(--text-heading)] leading-none">Aim<span class="text-secondary">Forge</span></div>
+        </a>
 
-            <div class="mb-5 text-center shrink-0">
-                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-1">Create Account</h1>
-                <p class="text-[var(--text-main)] opacity-80 text-xs font-medium">Start your journey with AimForge</p>
+        <div class="flex items-center gap-2 md:gap-3 shrink-0">
+            <button id="themeToggle" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 card-toggle-btn shadow-sm hover:shadow-md" title="Toggle Dark Mode">
+                <i class="fas fa-moon text-sm" id="themeIcon"></i>
+            </button>
+            <button id="rtlToggle" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 card-toggle-btn shadow-sm hover:shadow-md" title="Toggle RTL">
+                <i class="fas fa-exchange-alt text-sm"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="flex-1 flex flex-col items-center justify-center w-full px-4 pt-16 relative">
+        
+        <div class="absolute top-1/4 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-primary/20 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="w-full max-w-[380px] bg-[var(--card-bg)] rounded-3xl shadow-2xl border border-[var(--border-color)] animate-fadeInUp p-5 md:p-6 relative z-10 flex flex-col">
+            
+            <div class="mb-4 text-center shrink-0">
+                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-0.5">Create Account</h1>
+                <p class="text-[var(--text-main)] opacity-80 text-[11px] font-medium">Start your journey with AimForge</p>
             </div>
 
             <div id="signupForm" class="flex-1 flex flex-col justify-between">
@@ -168,7 +166,7 @@
                         <div class="relative">
                             <i class="fas fa-lock input-icon"></i>
                             <input type="password" id="signupPassword" placeholder="Create a strong password" required class="form-input" autocomplete="new-password">
-                            <button type="button" onclick="togglePasswordVisibility('signupPassword', 'signupEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
+                            <button type="button" onclick="togglePasswordVisibility('signupPassword', 'signupEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
                                 <i class="fas fa-eye text-sm" id="signupEyeIcon"></i>
                             </button>
                         </div>
@@ -179,7 +177,7 @@
                         <div class="relative">
                             <i class="fas fa-lock input-icon"></i>
                             <input type="password" id="signupConfirmPassword" placeholder="Repeat your password" required class="form-input" autocomplete="new-password">
-                            <button type="button" onclick="togglePasswordVisibility('signupConfirmPassword', 'signupConfirmEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
+                            <button type="button" onclick="togglePasswordVisibility('signupConfirmPassword', 'signupConfirmEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
                                 <i class="fas fa-eye text-sm" id="signupConfirmEyeIcon"></i>
                             </button>
                         </div>
@@ -194,12 +192,12 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="signupButton">
+                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="signupButton">
                         Create Account
                     </button>
                 </form>
 
-                <div class="mt-4 shrink-0">
+                <div class="mt-4 shrink-0 pt-3 border-t border-[var(--border-color)]">
                     <p class="text-center text-xs text-[var(--text-main)] font-medium">
                         Already have an account? 
                         <a href="login.html" class="text-secondary font-bold hover:underline ml-1">Log In</a>
@@ -219,7 +217,7 @@
         function updateThemeIcon() {
             const isDark = htmlElement.classList.contains('dark');
             if (themeIcon) {
-                themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeIcon.className = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
             }
         }
 
@@ -234,7 +232,7 @@
         if (themeToggle) themeToggle.addEventListener("click", toggleDarkMode);
         
         // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'dark'; // defaulting to dark to match pricing vibe
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'dark') {
             htmlElement.classList.add("dark");
             htmlElement.setAttribute('data-theme', 'dark');
@@ -274,7 +272,6 @@
             }
 
             const btn = document.getElementById('signupButton');
-            
             btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Creating...';
             
             setTimeout(() => {
