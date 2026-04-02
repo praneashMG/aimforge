@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - AimForge</title>
-    <meta name="description" content="Login to AimForge - Elite Coaching Platform">
+    <title>Signup - AimForge</title>
+    <meta name="description" content="Create an account on AimForge - Elite Coaching Platform">
 
     <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
     
@@ -21,13 +21,13 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#0B1D2A',   // Dark Blue
-                        secondary: '#7A1E2C', // Dark Red 
+                        primary: '#0B1D2A',   
+                        secondary: '#7A1E2C', 
                         base: '#000000',      
                         cream: '#FFFFFF',     
                         warmgray: '#9CA3AF',  
                         charcoal: '#111827',  
-                        'card-dark': '#122230'// Dark Blue Card
+                        'card-dark': '#122230'
                     },
                     animation: {
                         'fadeInUp': 'fadeInUp 0.4s ease-out',
@@ -47,9 +47,6 @@
         @layer components {
             .form-input {
                 @apply w-full pl-10 pr-10 py-2 border bg-transparent rounded-xl focus:border-secondary focus:ring-1 focus:ring-secondary transition-all outline-none text-sm font-medium;
-            }
-            .social-btn {
-                @apply flex-1 flex items-center justify-center py-2 border rounded-xl transition-colors duration-300 shadow-sm;
             }
             .input-icon {
                 @apply absolute top-1/2 -translate-y-1/2 text-gray-400 left-3.5 text-sm;
@@ -73,16 +70,15 @@
             --input-border: #D1D5DB;
         }
         
-        /* Dark Blue / Deep Dark Mode matching Pricing Page */
         [data-theme="dark"] {
             --primary-color: #0B1D2A;   
             --secondary-color: #7A1E2C; 
-            --bg-color: #050E14;        /* Very Dark Navy Background */
+            --bg-color: #050E14;        
             --bg-alt: #08151E;          
-            --card-bg: #0B1D2A;         /* Primary Dark Blue for cards */
-            --text-main: #E5E7EB;       /* Light Grey Text */
-            --text-heading: #FFFFFF;    /* Pure White Headings */
-            --border-color: #172F43;    /* Dark border */
+            --card-bg: #0B1D2A;         
+            --text-main: #E5E7EB;       
+            --text-heading: #FFFFFF;    
+            --border-color: #172F43;    
             --input-border: #172F43;
         }
 
@@ -103,15 +99,6 @@
         .form-input::placeholder {
             color: var(--warmgray);
             opacity: 0.6;
-        }
-
-        .social-btn {
-            border-color: var(--border-color);
-            background-color: var(--card-bg);
-            color: var(--text-heading);
-        }
-        .social-btn:hover {
-            border-color: var(--secondary-color);
         }
 
         .card-toggle-btn { 
@@ -153,100 +140,75 @@
             </div>
 
             <div class="mb-5 text-center shrink-0">
-                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-1">Welcome Back</h1>
-                <p class="text-[var(--text-main)] opacity-80 text-xs font-medium">Sign in to manage your VODs</p>
+                <h1 class="text-xl md:text-2xl font-black text-[var(--text-heading)] mb-1">Create Account</h1>
+                <p class="text-[var(--text-main)] opacity-80 text-xs font-medium">Start your journey with AimForge</p>
             </div>
 
-            <div id="loginForm" class="flex-1 flex flex-col justify-between">
-                <form id="loginFormElement" class="space-y-3 shrink-0">
+            <div id="signupForm" class="flex-1 flex flex-col justify-between">
+                <form id="signupFormElement" class="space-y-3 shrink-0">
                     
                     <div>
-                        <label class="form-label" for="loginEmail">Email Address</label>
+                        <label class="form-label" for="firstName">First Name</label>
                         <div class="relative">
-                            <i class="fas fa-envelope input-icon"></i>
-                            <input type="email" placeholder="alex@example.com" required class="form-input" id="loginEmail" autocomplete="username">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" placeholder="Alex" required class="form-input" id="firstName" autocomplete="given-name">
                         </div>
                     </div>
 
                     <div>
-                        <label class="form-label" for="loginPassword">Password</label>
+                        <label class="form-label" for="signupEmail">Email Address</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" placeholder="alex@example.com" required class="form-input" id="signupEmail" autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="signupPassword">Password</label>
                         <div class="relative">
                             <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="loginPassword" placeholder="Enter your password" required class="form-input" autocomplete="current-password">
-                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
-                                <i class="fas fa-eye text-sm" id="loginEyeIcon"></i>
+                            <input type="password" id="signupPassword" placeholder="Create a strong password" required class="form-input" autocomplete="new-password">
+                            <button type="button" onclick="togglePasswordVisibility('signupPassword', 'signupEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
+                                <i class="fas fa-eye text-sm" id="signupEyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label" for="signupConfirmPassword">Confirm Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="signupConfirmPassword" placeholder="Repeat your password" required class="form-input" autocomplete="new-password">
+                            <button type="button" onclick="togglePasswordVisibility('signupConfirmPassword', 'signupConfirmEyeIcon')" class="absolute top-1/2 -translate-y-1/2 right-3.5 text-gray-400 hover:text-[var(--text-heading)] focus:outline-none cursor-pointer bg-transparent border-0 p-0 transition-colors">
+                                <i class="fas fa-eye text-sm" id="signupConfirmEyeIcon"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between text-xs font-medium pt-1 pb-2">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="w-3.5 h-3.5 text-secondary rounded border-[var(--border-color)] focus:ring-secondary bg-transparent">
-                            <span class="text-[var(--text-main)]">Remember me</span>
+                    <div class="flex items-start gap-2 pt-1 pb-1">
+                        <div class="flex items-center h-4 mt-0.5">
+                            <input id="terms" type="checkbox" required class="w-3.5 h-3.5 text-secondary rounded border-[var(--border-color)] focus:ring-secondary bg-transparent cursor-pointer">
+                        </div>
+                        <label for="terms" class="text-[var(--text-main)] text-[10px] font-medium leading-tight cursor-pointer">
+                            I agree to the <a href="#" class="text-secondary font-bold hover:underline">Terms</a> and <a href="#" class="text-secondary font-bold hover:underline">Privacy Policy</a>.
                         </label>
-                        <a href="#" class="text-secondary hover:underline font-bold transition-colors" onclick="showPasswordReset()">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="loginButton">
-                        Login Securely
+                    <button type="submit" class="w-full bg-secondary text-white hover:bg-white hover:text-primary hover:border hover:border-secondary py-2.5 rounded-xl font-black text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent cursor-pointer" id="signupButton">
+                        Create Account
                     </button>
                 </form>
 
                 <div class="mt-4 shrink-0">
-                    <div class="relative flex items-center py-2 mb-4">
-                        <div class="flex-grow border-t border-[var(--border-color)]"></div>
-                        <span class="flex-shrink-0 mx-3 text-[var(--text-main)] opacity-60 text-[9px] font-bold uppercase tracking-wider">Or continue with</span>
-                        <div class="flex-grow border-t border-[var(--border-color)]"></div>
-                    </div>
-
-                    <div class="flex gap-2 w-full mb-4">
-                        <button class="social-btn cursor-pointer" title="Sign in with Google">
-                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4" alt="Google">
-                        </button>
-                        <button class="social-btn cursor-pointer" title="Sign in with Riot">
-                            <i class="fas fa-fist-raised text-[#EB0029] text-lg"></i>
-                        </button>
-                        <button class="social-btn cursor-pointer" title="Sign in with Discord">
-                            <i class="fab fa-discord text-[#5865F2] text-lg"></i>
-                        </button>
-                    </div>
-
                     <p class="text-center text-xs text-[var(--text-main)] font-medium">
-                        Don't have an account? 
-                        <a href="register.html" class="text-secondary font-bold hover:underline ml-1">Create Account</a>
+                        Already have an account? 
+                        <a href="login.html" class="text-secondary font-bold hover:underline ml-1">Log In</a>
                     </p>
                 </div>
             </div>
 
         </div>
     </section>
-
-    <div id="passwordResetModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] hidden p-4">
-        <div class="bg-[var(--card-bg)] rounded-3xl p-6 max-w-sm w-full shadow-2xl transform transition-all duration-300 scale-95 border border-[var(--border-color)] relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1.5 bg-secondary"></div>
-            
-            <div class="flex justify-between items-center mb-3 mt-1">
-                <h3 class="text-lg font-black text-[var(--text-heading)]">Reset Password</h3>
-                <button onclick="closePasswordReset()" class="text-[var(--text-main)] hover:text-secondary transition-colors cursor-pointer border-0 bg-transparent">
-                    <i class="fas fa-times text-lg"></i>
-                </button>
-            </div>
-            
-            <p class="text-[var(--text-main)] opacity-80 mb-5 text-xs font-medium leading-relaxed">
-                Enter your email address associated with your account and we'll send you a link to reset your password.
-            </p>
-            
-            <div class="space-y-3">
-                <div class="relative">
-                    <i class="fas fa-envelope input-icon"></i>
-                    <input type="email" placeholder="alex@example.com" class="form-input py-2.5" id="resetEmail">
-                </div>
-                <button onclick="sendResetLink(event)" class="w-full bg-secondary hover:bg-white hover:text-primary hover:border hover:border-secondary text-white py-2.5 rounded-xl font-black transition-all duration-300 text-sm shadow-md cursor-pointer border border-transparent">
-                    Send Reset Link
-                </button>
-            </div>
-        </div>
-    </div>
 
     <script>
         // 1. Theme Logic
@@ -298,46 +260,30 @@
             htmlElement.setAttribute("dir", "rtl");
         }
 
-        // 3. Modal Logic
-        function showPasswordReset() {
-            if(window.event) window.event.preventDefault();
-            document.getElementById('passwordResetModal').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('passwordResetModal').querySelector('div').style.transform = 'scale(1)';
-            }, 10);
-        }
-
-        function closePasswordReset() {
-            document.getElementById('passwordResetModal').querySelector('div').style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                document.getElementById('passwordResetModal').classList.add('hidden');
-            }, 300);
-        }
-
-        function sendResetLink(event) {
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
-            setTimeout(() => {
-                alert('Reset link sent to your email!');
-                btn.textContent = originalText;
-                closePasswordReset();
-            }, 1000);
-        }
-
-        // 4. Login Submission Simulation
-        document.getElementById('loginFormElement').addEventListener('submit', function(e) {
+        // 3. Sign Up Submission Simulation
+        document.getElementById('signupFormElement').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('loginButton');
             
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Authenticating...';
+            // Password match validation
+            const pwd = document.getElementById('signupPassword').value;
+            const confirmPwd = document.getElementById('signupConfirmPassword').value;
+            
+            if (pwd !== confirmPwd) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            const btn = document.getElementById('signupButton');
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Creating...';
             
             setTimeout(() => {
+                alert('Account created successfully!');
                 window.location.href = 'user-dashboard.html';
             }, 1500);
         });
 
-        // 5. Password Visibility Toggle
+        // 4. Password Visibility Toggle
         function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
