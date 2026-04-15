@@ -25,16 +25,6 @@
                         warmgray: '#9CA3AF',  
                         charcoal: '#111827',  
                         'card-dark': '#122230'// Dark Blue Card
-                    },
-                    animation: {
-                        'fadeInUp': 'fadeInUp 0.8s ease-out',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' }
-                        }
                     }
                 }
             }
@@ -53,7 +43,8 @@
             --card-bg: #FFFFFF;    
             --text-main: #1F2937; 
             --text-heading: #000000; 
-            --navbar-bg: #0B1D2A; 
+            --navbar-bg: #FFFFFF; 
+            --nav-text: #0B1D2A;
             --border-color: #E5E7EB; 
         }
         
@@ -67,6 +58,7 @@
             --text-main: #E5E7EB;       /* Light Grey Text */
             --text-heading: #FFFFFF;    /* Pure White Headings */
             --navbar-bg: #050E14;       /* Dark Navbar */
+            --nav-text: #E5E7EB;
             --border-color: #172F43;    /* Dark border */
         }
         
@@ -101,19 +93,19 @@
         .bg-primary { background-color: var(--primary-color) !important; color: #FFFFFF !important; } 
         .bg-secondary { background-color: var(--secondary-color) !important; color: #FFFFFF !important; }
 
-        /* Navbar Styles */
+        /* Navbar Styles - Now Dynamic */
         .navbar-container {
             background-color: var(--navbar-bg);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
             height: 70px;
             display: flex;
             align-items: center;
         }
         
         .nav-link {
-            color: #FFFFFF; 
+            color: var(--nav-text); 
             padding: 8px 10px; 
             transition: all 0.3s ease;
             position: relative;
@@ -135,8 +127,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: var(--navbar-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             min-width: 160px;
             opacity: 0;
@@ -144,7 +136,7 @@
             transform: translateY(10px);
             transition: all 0.3s ease;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         #dashboard-dropdown .dropdown-menu { left: auto; right: 0; }
@@ -153,18 +145,18 @@
             opacity: 1; visibility: visible; transform: translateY(0);
         }
         .dropdown-item {
-            display: block; padding: 12px 20px; color: #FFFFFF;
-            transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+            display: block; padding: 12px 20px; color: var(--nav-text);
+            transition: all 0.3s ease; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;
             text-decoration: none;
         }
-        .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
+        .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.05); color: var(--secondary-color); padding-left: 25px; }
         .dropdown-arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
         
         /* Mobile Menu */
         .mobile-menu {
             transform: translateX(-100%); transition: transform 0.3s ease;
-            background-color: var(--navbar-bg); color: #FFFFFF; 
+            background-color: var(--navbar-bg); color: var(--text-heading); 
         }
         .mobile-menu.active { transform: translateX(0); }
         
@@ -172,7 +164,7 @@
             max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
             padding-left: 20px; background-color: rgba(255,255,255,0.05); border-radius: 8px;
         }
-        .mobile-dropdown-content a { color: #E5E7EB; text-decoration: none;} 
+        .mobile-dropdown-content a { color: var(--text-main); text-decoration: none;} 
         .mobile-dropdown-content a:hover { color: var(--secondary-color); }
         .mobile-dropdown-content.active { max-height: 500px; margin: 5px 0; }
         
@@ -183,10 +175,6 @@
         @media (min-width: 1280px) {
             .desktop-nav, .navbar-right-desktop { display: flex !important; }
             .mobile-menu-button { display: none !important; }
-        }
-
-        .progress-bar-fill {
-            transition: width 1.5s ease-in-out;
         }
     </style>
 </head>
@@ -203,7 +191,7 @@
                             <i class="fas fa-crosshairs text-white text-lg"></i>
                         </div>
                         <div>
-                            <div class="text-xl md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                            <div class="text-xl md:text-2xl font-black text-heading-theme tracking-tight">Aim<span class="text-secondary">Forge</span></div>
                         </div>
                     </a>
                     
@@ -237,22 +225,22 @@
                     </div>
                     
                      <div class="navbar-right-desktop flex items-center gap-2 lg:gap-3 shrink-0">
-                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
+                        <button class="w-10 h-10 bg-theme-alt text-heading-theme border border-theme rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white hover:border-secondary shrink-0 cursor-pointer shadow-sm" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
                             <i class="fas fa-moon" id="desktop-theme-icon"></i>
                         </button>
-                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-rtl-toggle-btn" title="Toggle RTL">
+                        <button class="w-10 h-10 bg-theme-alt text-heading-theme border border-theme rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white hover:border-secondary shrink-0 cursor-pointer shadow-sm" id="desktop-rtl-toggle-btn" title="Toggle RTL">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
                         
-                        <a href="login.html" class="h-10 bg-transparent border border-white/40 text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white/20 shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
+                        <a href="login.html" class="h-10 bg-transparent border border-theme text-heading-theme px-5 rounded-lg font-bold text-sm transition-all hover:bg-theme-alt shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
                             <i class="fas fa-sign-in-alt"></i> Login
                         </a>
-                        <a href="register.html" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white hover:text-primary shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
+                        <a href="register.html" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-primary hover:text-white shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
                             <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
                     
-                    <button id="mobile-menu-btn" class="hidden text-white cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
+                    <button id="mobile-menu-btn" class="hidden text-heading-theme cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -267,18 +255,18 @@
                             <i class="fas fa-crosshairs text-white"></i>
                         </div>
                         <div>
-                            <div class="text-lg md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                            <div class="text-lg md:text-2xl font-black text-text-heading tracking-tight">Aim<span class="text-secondary">Forge</span></div>
                         </div>
                     </a>
                     
-                    <div class="flex items-center bg-gray-800 rounded-lg px-2 py-1 shadow-md border border-white/10">
-                        <button id="mobile-theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                    <div class="flex items-center bg-card-theme rounded-lg px-2 py-1 shadow-md border border-theme">
+                        <button id="mobile-theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-heading-theme flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
                             <i class="fas fa-moon" id="mobile-theme-icon"></i>
                         </button>
-                        <button id="mobile-rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                        <button id="mobile-rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-heading-theme flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
-                        <button id="close-mobile-menu" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-xl sm:text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
+                        <button id="close-mobile-menu" class="w-9 h-9 sm:w-10 sm:h-10 text-heading-theme flex items-center justify-center text-xl sm:text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -286,7 +274,7 @@
                 
                 <div class="space-y-1">
                     <div>
-                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-white font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
+                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-heading-theme font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
                             <span>Home</span>
                             <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
                         </button>
@@ -296,16 +284,16 @@
                         </div>
                     </div>
                     
-                    <a href="about.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-white/10 transition-colors"><span>About</span></a>
-                    <a href="programs.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Programs</span></a>
-                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Video Library</span></a>
-                    <a href="blog.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Blog</span></a>
-                    <a href="pricing.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Pricing</span></a>
-                    <a href="faq.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>FAQ</span></a>
-                    <a href="contact.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Contact</span></a>
+                    <a href="about.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-theme transition-colors"><span>About</span></a>
+                    <a href="programs.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Programs</span></a>
+                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Video Library</span></a>
+                    <a href="blog.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Blog</span></a>
+                    <a href="pricing.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Pricing</span></a>
+                    <a href="faq.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>FAQ</span></a>
+                    <a href="contact.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Contact</span></a>
                     
                     <div class="mt-2">
-                        <button class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
+                        <button class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
                             <span>Dashboard</span>
                             <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
                         </button>
@@ -315,11 +303,11 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3">
-                        <a href="login.html" class="bg-transparent border border-white/30 text-white w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-white/10 flex items-center justify-center gap-2 no-underline">
+                    <div class="mt-8 pt-6 border-t border-theme space-y-3">
+                        <a href="login.html" class="bg-transparent border border-theme text-heading-theme w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-theme-alt flex items-center justify-center gap-2 no-underline">
                             <i class="fas fa-sign-in-alt"></i> Login
                         </a>
-                        <a href="register.html" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-white hover:text-primary flex items-center justify-center gap-2 shadow-lg no-underline">
+                        <a href="register.html" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-primary hover:text-white flex items-center justify-center gap-2 shadow-lg no-underline">
                             <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
@@ -331,11 +319,11 @@
             
             <section class="relative w-full min-h-[100dvh] bg-primary flex items-center justify-center overflow-hidden z-10 pt-[70px] pb-12">
                 <div class="absolute inset-0 z-0"> 
-                    <img src="Images/about.jpg" alt="About AimForge" class="w-full h-full object-cover object-center scale-105 animate-pulse-slow">
+                    <img src="Images/about.jpg" alt="About AimForge" class="w-full h-full object-cover object-center scale-105">
                     <div class="absolute inset-0 bg-gradient-to-b from-[#0B1D2A]/70 via-[#0B1D2A]/50 to-[#0B1D2A]/90"></div>
                 </div>
                 
-                <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center text-center animate-fadeInUp">
+                <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center text-center">
                     <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl uppercase tracking-tighter">
                         About <span class="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-red-500">AimForge</span>
                     </h1>
@@ -398,36 +386,40 @@
                 </div>
             </section>
 
-            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
+            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20 overflow-hidden">
                 <div class="container mx-auto max-w-7xl px-4">
                     <div class="text-center mb-16">
-                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Why AimForge is Different</h2>
-                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">The ultimate competitive advantage</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Inside the Forge</h2>
+                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">State-of-the-art facilities and analysis</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Data-Driven Feedback</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">We use advanced API integrations to pull your match data, identifying statistical weaknesses in your TTK, crosshair placement, and economic choices.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="relative group rounded-[2.5rem] overflow-hidden border-4 border-theme shadow-lg">
+                            <div class="absolute inset-0 bg-secondary/20 mix-blend-overlay z-10 group-hover:bg-transparent transition-all duration-500"></div>
+                            <img src="Images/Team Communication.jpg" alt="Pro-Tier Battle Stations" class="w-full h-[350px] md:h-[450px] object-cover transform group-hover:scale-105 transition-transform duration-700">
                         </div>
-                        
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-video"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Micro VOD Reviews</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">Unlike generic tips, our coaches dissect your exact gameplay frame-by-frame, pointing out positional errors and providing actionable corrections.</p>
+                        <div class="space-y-6">
+                            <h3 class="text-3xl font-black text-heading-theme">Pro-Tier Battle Stations</h3>
+                            <p class="text-lg text-body-theme leading-relaxed">Experience zero-latency environments. We guide you on replicating stage-ready setups, ensuring that hardware is never the bottleneck in your climb to the top of the leaderboard.</p>
+                            <ul class="space-y-4 pt-2">
+                                <li class="flex items-center gap-3 text-body-theme font-medium"><i class="fas fa-microchip text-secondary text-xl"></i> Hardware Optimization Guides</li>
+                                <li class="flex items-center gap-3 text-body-theme font-medium"><i class="fas fa-mouse text-secondary text-xl"></i> Precision Peripheral Tuning</li>
+                            </ul>
                         </div>
+                    </div>
 
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Custom Routines</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">Get personalized daily AimLab/KovaaKs playlists directly integrated into your dashboard, built specifically to cure your mechanical flaws.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center flex-col-reverse md:flex-row">
+                        <div class="space-y-6 order-2 md:order-1">
+                            <h3 class="text-3xl font-black text-heading-theme">Biometric Heatmaps</h3>
+                            <p class="text-lg text-body-theme leading-relaxed">Visualize your mouse movements and eye tracking. Our advanced software integration allows coaches to see exactly where your focus breaks during clutch situations and firefights.</p>
+                            <ul class="space-y-4 pt-2">
+                                <li class="flex items-center gap-3 text-body-theme font-medium"><i class="fas fa-eye text-secondary text-xl"></i> Eye-Tracking Analytics</li>
+                                <li class="flex items-center gap-3 text-body-theme font-medium"><i class="fas fa-crosshairs text-secondary text-xl"></i> Micro-flick Heatmaps</li>
+                            </ul>
+                        </div>
+                        <div class="relative group rounded-[2.5rem] overflow-hidden border-4 border-theme shadow-lg order-1 md:order-2">
+                            <div class="absolute inset-0 bg-secondary/20 mix-blend-overlay z-10 group-hover:bg-transparent transition-all duration-500"></div>
+                            <img src="Images/hero2.jpg" alt="Biometric Analysis" class="w-full h-[350px] md:h-[450px] object-cover transform group-hover:scale-105 transition-transform duration-700">
                         </div>
                     </div>
                 </div>
@@ -441,28 +433,28 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row justify-center items-stretch gap-6">
-                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10 hover:border-secondary hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(122,30,44,0.3)] transition-all duration-300">
                             <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">1</div>
                             <h4 class="font-bold text-heading-theme text-lg mb-2">Assess</h4>
                             <p class="text-body-theme text-sm">Initial VOD review and stat analysis to determine your baseline skill and bad habits.</p>
                         </div>
                         <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
                         
-                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10 hover:border-secondary hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(122,30,44,0.3)] transition-all duration-300">
                             <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">2</div>
                             <h4 class="font-bold text-heading-theme text-lg mb-2">Drill</h4>
                             <p class="text-body-theme text-sm">Targeted mechanical training and custom server utility practice based on step one.</p>
                         </div>
                         <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
                         
-                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10 hover:border-secondary hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(122,30,44,0.3)] transition-all duration-300">
                             <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">3</div>
                             <h4 class="font-bold text-heading-theme text-lg mb-2">Execute</h4>
                             <p class="text-body-theme text-sm">Live 1-on-1 coaching during matches to fix macro decision-making in real-time.</p>
                         </div>
                         <div class="hidden md:flex items-center justify-center text-secondary"><i class="fas fa-arrow-right"></i></div>
 
-                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10">
+                        <div class="bg-card-theme p-6 rounded-2xl border border-theme flex-1 text-center relative z-10 hover:border-secondary hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(122,30,44,0.3)] transition-all duration-300">
                             <div class="w-10 h-10 bg-secondary text-white font-black rounded-full flex items-center justify-center mx-auto mb-4 -mt-10 border-4 border-theme-alt">4</div>
                             <h4 class="font-bold text-heading-theme text-lg mb-2">Dominate</h4>
                             <p class="text-body-theme text-sm">Join our internal tournaments and scrims to put your new skills to the ultimate test.</p>
@@ -471,71 +463,41 @@
                 </div>
             </section>
 
-            <section class="py-20 md:py-28 bg-theme-main border-b border-theme relative z-20">
-                <div class="container mx-auto max-w-7xl px-4">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Our Core Values</h2>
-                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">What Drives Our Community Forward</p>
-                    </div>
+            <section class="py-20 md:py-28 relative z-20 overflow-hidden bg-primary border-b border-theme">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+                
+                <div class="container mx-auto max-w-5xl px-4 relative z-10">
+                    <div class="bg-card-theme rounded-[2rem] border border-theme p-8 md:p-16 text-center shadow-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        
+                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">
+                            Ready to Forge Your <span class="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-red-500">Legacy?</span>
+                        </h2>
+                        <p class="text-xl text-body-theme max-w-2xl mx-auto mb-10 font-medium relative z-10">
+                            Stop letting bad habits hold you back. Join thousands of players who have already leveled up their game with our elite coaches.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10 border-y border-theme py-8 relative z-10">
+                            <div class="p-4 transition-transform hover:-translate-y-1">
+                                <div class="text-4xl md:text-5xl font-black text-heading-theme mb-1">50K+</div>
+                                <div class="text-xs md:text-sm font-bold text-secondary uppercase tracking-widest">Players Forged</div>
+                            </div>
+                            <div class="p-4 transition-transform hover:-translate-y-1">
+                                <div class="text-4xl md:text-5xl font-black text-heading-theme mb-1">85%</div>
+                                <div class="text-xs md:text-sm font-bold text-secondary uppercase tracking-widest">Win Rate Boost</div>
+                            </div>
+                            <div class="col-span-2 md:col-span-1 p-4 transition-transform hover:-translate-y-1">
+                                <div class="text-4xl md:text-5xl font-black text-heading-theme mb-1">24/7</div>
+                                <div class="text-xs md:text-sm font-bold text-secondary uppercase tracking-widest">Pro Analysis</div>
+                            </div>
+                        </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Integrity & Respect</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">We believe in fair play, honest feedback, and creating a non-toxic environment for all players to grow and learn.</p>
-                        </div>
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-fire"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Relentless Dedication</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">Improvement takes time. We are committed to providing the resources needed for long-term, sustainable growth in esports.</p>
-                        </div>
-                        <div class="bg-card-theme p-8 rounded-3xl shadow-sm border border-theme hover:border-secondary transition-all duration-300 text-center">
-                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl mb-6 mx-auto">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-heading-theme mb-3">Constant Innovation</h3>
-                            <p class="text-body-theme text-sm leading-relaxed">The meta constantly shifts. We continuously update our curriculum and analytics tools to keep our players ahead of the curve.</p>
-                        </div>
+                        <a href="register.html" class="inline-flex items-center justify-center gap-3 bg-secondary text-white px-8 py-4 rounded-xl font-black text-lg uppercase tracking-wide transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 shadow-[0_0_20px_rgba(122,30,44,0.4)] no-underline relative z-10 border border-transparent hover:border-theme">
+                            <i class="fas fa-rocket"></i> Start Training Now
+                        </a>
                     </div>
                 </div>
             </section>
-
-            <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
-                <div class="container mx-auto max-w-7xl px-4">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Platform Achievements</h2>
-                        <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">The numbers behind the success</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                        <div class="p-6">
-                            <i class="fas fa-users text-4xl text-secondary mb-4"></i>
-                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">50k+</h3>
-                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Active Users</p>
-                        </div>
-                        <div class="p-6">
-                            <i class="fas fa-video text-4xl text-secondary mb-4"></i>
-                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">12k+</h3>
-                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">VODs Reviewed</p>
-                        </div>
-                        <div class="p-6">
-                            <i class="fas fa-trophy text-4xl text-secondary mb-4"></i>
-                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">500+</h3>
-                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Tournaments</p>
-                        </div>
-                        <div class="p-6">
-                            <i class="fas fa-medal text-4xl text-secondary mb-4"></i>
-                            <h3 class="text-4xl md:text-5xl font-black text-heading-theme mb-2">#1</h3>
-                            <p class="text-body-theme font-bold uppercase tracking-wider text-sm">Training Platform</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
         </main>
 
         <footer class="bg-[#03090D] py-12 md:py-16 shrink-0 relative border-t border-white/10">
@@ -593,7 +555,6 @@
                 
                 <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium relative text-center sm:text-left">
                     <p class="mb-4 md:mb-0 text-gray-400">© 2026 AimForge. All rights reserved.</p>
-                    
                     <div class="flex justify-center sm:justify-end gap-6 w-full md:w-auto">
                         <a href="#" class="text-gray-400 hover:text-white transition no-underline">Privacy Policy</a>
                         <a href="#" class="text-gray-400 hover:text-white transition no-underline">Terms of Service</a>
@@ -617,8 +578,8 @@
         const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
         const desktopRtlToggleBtn = document.getElementById('desktop-rtl-toggle-btn');
         
-        // Initialize Theme - Enforcing dark mode defaults
-        const currentTheme = localStorage.getItem('theme') || 'dark'; 
+        // Initialize Theme - Defaults to Dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         htmlElement.setAttribute('data-theme', currentTheme);
         if (currentTheme === 'dark') {
             htmlElement.classList.add('dark');
@@ -693,21 +654,6 @@
                 mobileMenu.classList.remove('active');
             });
         }
-
-        // Active Link Highlighting
-        const currentPath = window.location.pathname.split('/').pop() || 'about.html';
-        
-        document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
-            if (link.getAttribute('href') === 'about.html' || currentPath === 'about.html') {
-                if (link.getAttribute('href') === 'about.html') {
-                    link.classList.add('active');
-                    const parent = link.closest('.dropdown');
-                    if (parent) parent.querySelector('.nav-link')?.classList.add('active');
-                }
-            } else {
-                link.classList.remove('active');
-            }
-        });
 
         // --- SMOOTH SCROLL & OFFSET ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

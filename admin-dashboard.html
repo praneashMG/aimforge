@@ -98,11 +98,11 @@
 </head>
 <body class="font-sans flex flex-col h-screen bg-light-base dark:bg-dark-base text-light-text dark:text-dark-text transition-colors duration-300">
 
-    <nav class="bg-primary dark:bg-[#050E14] shadow-md flex-shrink-0 relative z-50 h-20 border-b border-white/10 transition-colors duration-300">
+    <nav class="bg-white shadow-md flex-shrink-0 relative z-50 h-20 border-b border-light-border transition-colors duration-300">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 h-full flex justify-between items-center">
             
             <div class="flex items-center gap-2 sm:gap-4">
-                <button id="mobileMenuBtn" class="md:hidden text-white hover:text-accent transition-colors text-xl font-bold leading-none border-0 bg-transparent cursor-pointer">
+                <button id="mobileMenuBtn" class="md:hidden text-primary hover:text-accent transition-colors text-xl font-bold leading-none border-0 bg-transparent cursor-pointer">
                     <i class="fas fa-bars"></i>
                 </button>
 
@@ -111,24 +111,24 @@
                         <i class="fas fa-crosshairs text-white text-lg sm:text-xl md:text-2xl transform group-hover:scale-110 transition-transform duration-300"></i>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <span class="text-lg sm:text-xl md:text-2xl font-black text-white leading-none tracking-tight whitespace-nowrap">Aim<span class="text-accent">Forge</span></span>
+                        <span class="text-lg sm:text-xl md:text-2xl font-black text-primary leading-none tracking-tight whitespace-nowrap">Aim<span class="text-accent">Forge</span></span>
                     </div>
                 </a>
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3 md:gap-5">
-                <div class="flex items-center gap-2 lg:gap-3 shrink-0 ltr:mr-2 rtl:ml-2 border-r border-white/20 ltr:pr-2 sm:ltr:pr-4 rtl:pl-2 sm:rtl:pl-4">
-                    <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="theme-toggle-btn" title="Toggle Dark Mode">
+                <div class="flex items-center gap-2 lg:gap-3 shrink-0 ltr:mr-2 rtl:ml-2 border-r border-gray-200 ltr:pr-2 sm:ltr:pr-4 rtl:pl-2 sm:rtl:pl-4">
+                    <button class="w-10 h-10 bg-gray-100 text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-sm" id="theme-toggle-btn" title="Toggle Dark Mode">
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </button>
-                    <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="rtl-toggle-btn" title="Toggle RTL">
+                    <button class="w-10 h-10 bg-gray-100 text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-sm" id="rtl-toggle-btn" title="Toggle RTL">
                         <i class="fas fa-exchange-alt"></i>
                     </button>
                 </div>
 
                 <div class="flex items-center gap-2 sm:gap-3 cursor-pointer group">
                     <div class="ltr:text-right rtl:text-left hidden lg:block">
-                        <p class="text-xs font-bold text-white leading-tight">System Admin</p>
+                        <p class="text-xs font-bold text-primary leading-tight">System Admin</p>
                         <p class="text-[10px] text-accent font-bold tracking-wider uppercase">Master Access</p>
                     </div>
                     <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent text-white flex items-center justify-center font-black text-xs sm:text-sm md:text-lg border-2 border-transparent transition-colors shadow-[0_0_10px_rgba(122,30,44,0.5)]">
@@ -347,7 +347,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-light-border dark:divide-white/5">
-                                    <tr class="hover:bg-light-base dark:hover:bg-dark-base/30 transition-colors">
+                                    <tr class="hover:bg-light-base dark:bg-dark-base/30 transition-colors">
                                         <td class="px-6 py-4">
                                             <div class="flex items-center gap-3">
                                                 <div class="w-10 h-10 rounded-lg bg-accent/20 text-accent flex items-center justify-center font-black">AR</div>

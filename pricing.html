@@ -8,7 +8,7 @@
     
     <link rel="icon" type="image/jpeg" href="Images/growwpark_logo .jpg">
     
-    <script src="tailwind.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -25,21 +25,6 @@
                         warmgray: '#9CA3AF',  
                         charcoal: '#111827',  
                         'card-dark': '#122230'// Dark Blue Card
-                    },
-                    animation: {
-                        'fadeInUp': 'fadeInUp 0.8s ease-out',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
                     }
                 }
             }
@@ -58,7 +43,8 @@
             --card-bg: #FFFFFF;    
             --text-main: #1F2937; 
             --text-heading: #000000; 
-            --navbar-bg: #0B1D2A; 
+            --navbar-bg: #FFFFFF; 
+            --nav-text: #0B1D2A;
             --border-color: #E5E7EB; 
         }
         
@@ -72,6 +58,7 @@
             --text-main: #E5E7EB;       /* Light Grey Text */
             --text-heading: #FFFFFF;    /* Pure White Headings */
             --navbar-bg: #050E14;       /* Dark Navbar */
+            --nav-text: #E5E7EB;        /* Light Navbar Text */
             --border-color: #172F43;    /* Dark border */
         }
         
@@ -106,19 +93,19 @@
         .bg-primary { background-color: var(--primary-color) !important; color: #FFFFFF !important; } 
         .bg-secondary { background-color: var(--secondary-color) !important; color: #FFFFFF !important; }
 
-        /* Navbar Styles */
+        /* Navbar Styles - Theme Aware */
         .navbar-container {
             background-color: var(--navbar-bg);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
             height: 70px;
             display: flex;
             align-items: center;
         }
         
         .nav-link {
-            color: #FFFFFF; 
+            color: var(--nav-text); 
             padding: 8px 10px; 
             transition: all 0.3s ease;
             position: relative;
@@ -140,8 +127,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: var(--navbar-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             min-width: 160px;
             opacity: 0;
@@ -149,7 +136,7 @@
             transform: translateY(10px);
             transition: all 0.3s ease;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         #dashboard-dropdown .dropdown-menu { left: auto; right: 0; }
@@ -158,8 +145,8 @@
             opacity: 1; visibility: visible; transform: translateY(0);
         }
         .dropdown-item {
-            display: block; padding: 12px 20px; color: #FFFFFF;
-            transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+            display: block; padding: 12px 20px; color: var(--text-main);
+            transition: all 0.3s ease; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;
             text-decoration: none;
         }
         .dropdown-item:hover { background-color: rgba(122, 30, 44, 0.1); color: var(--secondary-color); padding-left: 25px; }
@@ -169,15 +156,15 @@
         /* Mobile Menu */
         .mobile-menu {
             transform: translateX(-100%); transition: transform 0.3s ease;
-            background-color: var(--navbar-bg); color: #FFFFFF; 
+            background-color: var(--navbar-bg); color: var(--nav-text); 
         }
         .mobile-menu.active { transform: translateX(0); }
         
         .mobile-dropdown-content {
             max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-            padding-left: 20px; background-color: rgba(255,255,255,0.05); border-radius: 8px;
+            padding-left: 20px; background-color: rgba(128,128,128,0.05); border-radius: 8px;
         }
-        .mobile-dropdown-content a { color: #E5E7EB; text-decoration: none;} 
+        .mobile-dropdown-content a { color: var(--nav-text); text-decoration: none;} 
         .mobile-dropdown-content a:hover { color: var(--secondary-color); }
         .mobile-dropdown-content.active { max-height: 500px; margin: 5px 0; }
         
@@ -207,7 +194,7 @@
                             <i class="fas fa-crosshairs text-white text-lg"></i>
                         </div>
                         <div>
-                            <div class="text-xl md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                            <div class="text-xl md:text-2xl font-black text-heading-theme tracking-tight">Aim<span class="text-secondary">Forge</span></div>
                         </div>
                     </a>
                     
@@ -225,8 +212,8 @@
                         <a href="programs.html" class="nav-link">Programs</a>
                         <a href="videolibrary.html" class="nav-link">Video Library</a>
                         <a href="blog.html" class="nav-link">Blog</a>
-                        <a href="faq.html" class="nav-link">FAQ</a>
                         <a href="pricing.html" class="nav-link active">Pricing</a>
+                        <a href="faq.html" class="nav-link">FAQ</a>
                         <a href="contact.html" class="nav-link">Contact</a>
 
                         <div class="dropdown" id="dashboard-dropdown">
@@ -241,22 +228,22 @@
                     </div>
                     
                      <div class="navbar-right-desktop flex items-center gap-2 lg:gap-3 shrink-0">
-                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
+                        <button class="w-10 h-10 bg-theme-alt text-heading-theme border border-theme rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 cursor-pointer shadow-sm" id="desktop-theme-toggle-btn" title="Toggle Dark Mode">
                             <i class="fas fa-moon" id="desktop-theme-icon"></i>
                         </button>
-                        <button class="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 border-0 cursor-pointer shadow-md" id="desktop-rtl-toggle-btn" title="Toggle RTL">
+                        <button class="w-10 h-10 bg-theme-alt text-heading-theme border border-theme rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-secondary hover:text-white shrink-0 cursor-pointer shadow-sm" id="desktop-rtl-toggle-btn" title="Toggle RTL">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
                         
-                        <a href="login.html" class="h-10 bg-transparent border border-white/40 text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white/20 shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
+                        <a href="login.html" class="h-10 bg-transparent border border-theme text-body-theme px-5 rounded-lg font-bold text-sm transition-all hover:bg-secondary hover:text-white shadow-sm flex items-center justify-center gap-2 shrink-0 no-underline box-border">
                             <i class="fas fa-sign-in-alt"></i> Login
                         </a>
-                        <a href="register.html" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:bg-white hover:text-primary shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
+                        <a href="register.html" class="h-10 bg-secondary text-white px-5 rounded-lg font-bold text-sm transition-all hover:opacity-90 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 shrink-0 border-2 border-transparent no-underline box-border">
                             <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
                     
-                    <button id="mobile-menu-btn" class="hidden text-white cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
+                    <button id="mobile-menu-btn" class="hidden text-heading-theme cursor-pointer bg-transparent border-0 mobile-menu-button items-center justify-center h-10 w-10 group relative hover:text-secondary transition-colors">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -271,18 +258,18 @@
                             <i class="fas fa-crosshairs text-white"></i>
                         </div>
                         <div>
-                            <div class="text-lg md:text-2xl font-black text-white tracking-tight">Aim<span class="text-secondary">Forge</span></div>
+                            <div class="text-lg md:text-2xl font-black text-heading-theme tracking-tight">Aim<span class="text-secondary">Forge</span></div>
                         </div>
                     </a>
                     
-                    <div class="flex items-center bg-gray-800 rounded-lg px-2 py-1 shadow-md border border-white/10">
-                        <button id="mobile-theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                    <div class="flex items-center bg-theme-alt rounded-lg px-2 py-1 shadow-md border border-theme">
+                        <button id="mobile-theme-toggle" class="w-10 h-10 text-heading-theme flex items-center justify-center text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
                             <i class="fas fa-moon" id="mobile-theme-icon"></i>
                         </button>
-                        <button id="mobile-rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-base sm:text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
+                        <button id="mobile-rtl-toggle" class="w-10 h-10 text-heading-theme flex items-center justify-center text-lg transition-all hover:text-secondary border-0 cursor-pointer bg-transparent">
                             <i class="fas fa-exchange-alt"></i>
                         </button>
-                        <button id="close-mobile-menu" class="w-9 h-9 sm:w-10 sm:h-10 text-white flex items-center justify-center text-xl sm:text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
+                        <button id="close-mobile-menu" class="w-10 h-10 text-heading-theme flex items-center justify-center text-2xl transition-transform active:scale-90 border-0 cursor-pointer bg-transparent hover:text-secondary">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -290,7 +277,7 @@
                 
                 <div class="space-y-1">
                     <div>
-                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-white font-medium text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
+                        <button id="mobile-home-btn" class="flex items-center justify-between w-full text-heading-theme font-bold text-lg py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('home-mobile')">
                             <span>Home</span>
                             <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
                         </button>
@@ -300,16 +287,16 @@
                         </div>
                     </div>
                     
-                    <a href="about.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>About</span></a>
-                    <a href="programs.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Programs</span></a>
-                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Video Library</span></a>
-                    <a href="blog.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Blog</span></a>
-                    <a href="faq.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>FAQ</span></a>
-                    <a href="pricing.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-white/10 transition-colors"><span>Pricing</span></a>
-                    <a href="contact.html" class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline border-b border-white/10 hover:text-secondary transition-colors"><span>Contact</span></a>
+                    <a href="about.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>About</span></a>
+                    <a href="programs.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Programs</span></a>
+                    <a href="videolibrary.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Video Library</span></a>
+                    <a href="blog.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Blog</span></a>
+                    <a href="pricing.html" class="flex items-center justify-between w-full text-secondary text-lg font-bold py-3 px-2 no-underline border-b border-theme transition-colors"><span>Pricing</span></a>
+                    <a href="faq.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>FAQ</span></a>
+                    <a href="contact.html" class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline border-b border-theme hover:text-secondary transition-colors"><span>Contact</span></a>
                     
                     <div class="mt-2">
-                        <button class="flex items-center justify-between w-full text-white text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
+                        <button class="flex items-center justify-between w-full text-heading-theme text-lg font-medium py-3 px-2 no-underline cursor-pointer border-0 bg-transparent hover:text-secondary transition-colors" onclick="toggleMobileDropdown('dashboard-mobile')">
                             <span>Dashboard</span>
                             <i class="fas fa-chevron-down dropdown-arrow text-warmgray"></i>
                         </button>
@@ -319,11 +306,11 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3">
-                        <a href="login.html" class="bg-transparent border border-white/30 text-white w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-white/10 flex items-center justify-center gap-2 no-underline">
+                    <div class="mt-8 pt-6 border-t border-theme space-y-3">
+                        <a href="login.html" class="bg-transparent border border-theme text-heading-theme w-full py-3 rounded-xl font-bold text-lg transition-all hover:bg-theme-alt flex items-center justify-center gap-2 no-underline">
                             <i class="fas fa-sign-in-alt"></i> Login
                         </a>
-                        <a href="register.html" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:bg-white hover:text-primary flex items-center justify-center gap-2 shadow-lg no-underline">
+                        <a href="register.html" class="bg-secondary text-white w-full py-3.5 rounded-xl font-bold text-lg transition-all hover:opacity-90 flex items-center justify-center gap-2 shadow-lg no-underline">
                             <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
@@ -331,15 +318,15 @@
             </div>
         </div>
 
-        <main class="w-full flex-grow">
+        <main class="w-full flex-grow pt-[70px]">
             
-            <section class="text-center relative overflow-hidden min-h-[100dvh] flex flex-col justify-center items-center pt-[70px]">
+            <section class="text-center relative overflow-hidden min-h-[100dvh] flex flex-col justify-center items-center">
                 <div class="absolute inset-0 z-0 bg-primary">
                     <img src="Images/hero1.jpg" class="w-full h-full object-cover opacity-60" alt="Esports Background">
                     <div class="absolute inset-0 bg-gradient-to-b from-[#0B1D2A]/60 via-[#0B1D2A]/80 to-[#0B1D2A]"></div>
                 </div>
                 
-                <div class="relative z-10 max-w-[1200px] w-full mx-auto px-4 animate-fadeInUp flex flex-col items-center justify-center h-full pt-10">
+                <div class="relative z-10 max-w-[1200px] w-full mx-auto px-4 flex flex-col items-center justify-center h-full pt-10">
                     <div class="inline-block bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-6 backdrop-blur-sm">
                         <i class="fas fa-crown text-secondary mr-2"></i> Select Your Tier
                     </div>
@@ -350,9 +337,9 @@
                         Get direct access to pro coaches, extensive VOD breakdowns, and mechanics training to finally break through your rank plateau.
                     </p>
 
-                    <div class="flex items-center justify-center gap-4 mb-4 bg-white/5 backdrop-blur-md p-2 rounded-full inline-flex animate-slide-up border border-theme shadow-lg">
+                    <div class="flex items-center justify-center gap-4 mb-4 bg-white/5 backdrop-blur-md p-2 rounded-full inline-flex border border-white/10 shadow-lg">
                         <span class="font-bold text-sm text-white px-4">Monthly</span>
-                        <button id="billingToggle" class="relative w-[60px] h-[30px] bg-theme-alt rounded-full cursor-pointer flex items-center border border-theme transition-colors">
+                        <button id="billingToggle" class="relative w-[60px] h-[30px] bg-black/40 rounded-full cursor-pointer flex items-center border border-white/20 transition-colors">
                             <span class="billing-toggle-slider absolute left-[3px] w-[24px] h-[24px] bg-secondary rounded-full shadow-md"></span>
                         </button>
                         <div class="flex items-center gap-2 px-4">
@@ -414,7 +401,7 @@
             </section>
 
             <section class="py-20 md:py-28 bg-theme-alt border-b border-theme relative z-20">
-                <div class="container mx-auto px-4 max-w-7xl">
+                <div class="container mx-auto max-w-7xl px-4">
                     <div class="text-center mb-16">
                         <h2 class="text-3xl md:text-5xl font-black text-heading-theme mb-4">Why Invest in Coaching?</h2>
                         <p class="text-secondary text-lg font-bold text-center uppercase tracking-wide mx-auto block">Stop Grinding Mindlessly</p>
@@ -669,8 +656,8 @@
         const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
         const desktopRtlToggleBtn = document.getElementById('desktop-rtl-toggle-btn');
         
-        // Initialize Theme
-        const currentTheme = localStorage.getItem('theme') || 'dark'; 
+        // Initialize Theme 
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         htmlElement.setAttribute('data-theme', currentTheme);
         if (currentTheme === 'dark') {
             htmlElement.classList.add('dark');
@@ -758,6 +745,24 @@
             } else {
                 link.classList.remove('active');
             }
+        });
+
+        // --- SMOOTH SCROLL & OFFSET ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    mobileMenu.classList.remove('active'); 
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, 
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
 
         // --- SCROLL TOP LOGIC ---
